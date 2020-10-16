@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.TradingApp"
+        applicationId "com.tradingapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
