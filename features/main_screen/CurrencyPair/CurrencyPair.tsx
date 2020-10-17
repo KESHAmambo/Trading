@@ -17,7 +17,10 @@ const CurrencyPair = (props: IProps) => {
   } = pair;
 
   return (
-    <View style={styles.sectionPair}>
+    <View
+      style={[
+        styles.sectionPair
+    ]}>
       <Text style={styles.pairName}>{title}</Text>
       <Text style={styles.pairRatio}>{ratio}</Text>
     </View>

@@ -7,13 +7,13 @@ import {
 } from 'react-native';
 
 import styles from "./styles";
-import {ICurrencyPair, PairsList} from "./features/main_screen/PairsList";
+import { ICurrencyPair } from "./types";
+import { PairsList } from "./features/main_screen/PairsList";
 
 const App = () => {
   const [curPairs, setCurPairs] = useState<ICurrencyPair[]>([]);
 
-  const showCurPairs = () => {
-    console.log('in showCurPairs');
+  const getCurPairs = () => {
     fetch('http://10.1.30.43:3000/currencies')
       .then((response) => response.json())
       .then((json) => {
@@ -23,22 +23,21 @@ const App = () => {
   }
 
   useEffect(() => {
-    showCurPairs();
-  });
+    getCurPairs();
+  }, []);
 
   const onPress = () => {
-    console.log('from onPress');
-    showCurPairs();
+    getCurPairs();
   }
 
   return (
     <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
+        <Button title={'REFRESH'} onPress={onPress} />
         <ScrollView
           style={styles.scrollView}
         >
-          <Button title={'KNOPKA'} onPress={onPress} />
           <PairsList currencyPairs={curPairs}/>
         </ScrollView>
       </SafeAreaView>

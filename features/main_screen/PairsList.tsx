@@ -2,16 +2,13 @@ import React from "react";
 import {FlatList, ListRenderItem} from "react-native";
 
 import CurrencyPair from "./CurrencyPair/CurrencyPair";
-
-export interface ICurrencyPair {
-  id: string
-  title: string,
-  ratio: number
-}
+import { ICurrencyPair } from "../../types";
 
 interface IProps {
   currencyPairs: Array<ICurrencyPair>
 }
+
+const keyExtractor = (item: ICurrencyPair) => item.id;
 
 const FuncComponent = (props: IProps) => {
 
@@ -32,7 +29,7 @@ const FuncComponent = (props: IProps) => {
     <FlatList
       data={currencyPairs}
       renderItem={renderItem}
-      keyExtractor={item => item.id}
+      keyExtractor={keyExtractor}
     />
   );
 }
