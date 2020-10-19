@@ -18,6 +18,7 @@ const FuncComponent = (props: IProps) => {
 
   const renderItem: ListRenderItem<ICurrencyPair> = (info) => {
     const { item } = info;
+
     return (
       <CurrencyPair
         pair={item}

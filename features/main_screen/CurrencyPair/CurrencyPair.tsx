@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text} from "react-native";
 import { styles } from "./style";
-import {ICurrencyPair} from "../PairsList";
+import { ICurrencyPair } from "../../../types";
 
 interface IProps {
   pair: ICurrencyPair
