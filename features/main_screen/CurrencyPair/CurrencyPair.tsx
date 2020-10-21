@@ -7,7 +7,7 @@ interface IProps {
   pair: ICurrencyPair
 }
 
-const CurrencyPair = (props: IProps) => {
+const FuncComponent = (props: IProps) => {
   const {
     pair
   } = props;
@@ -27,4 +27,4 @@ const CurrencyPair = (props: IProps) => {
   );
 };
 
-export default CurrencyPair;
+export const CurrencyPair = React.memo(FuncComponent);
