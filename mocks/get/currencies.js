@@ -33,6 +33,6 @@ const respond = () => {
 module.exports = {
   path: '/currencies',
   cache: false,
-  delay: 1500,
+  delay: 500,
   template: respond
 };
