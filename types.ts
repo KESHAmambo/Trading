@@ -1,5 +1,11 @@
 export interface ICurrencyPair {
-  id: string
+  id: string,
+  icon1: string,
+  icon2: string,
   title: string,
-  ratio: number
+  currency1: string,
+  currency2: string,
+  ratio: number,
+  change: number,
+  sign: string
 }
