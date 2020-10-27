@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { FlexDirection } from "../../../enum/styles/FlexDirection";
+import { BackgroundColor } from "../../../enum/styles/BackgroundColor";
 
 export const styles = StyleSheet.create({
   pairContainer: {
@@ -9,16 +10,17 @@ export const styles = StyleSheet.create({
     marginVertical: 5,
     marginHorizontal: 10,
 
-    backgroundColor: '#212244',
+    backgroundColor: BackgroundColor.PAIR,
     borderRadius: 12,
 
     padding: 10,
     justifyContent: "space-between",
-    alignItems: "flex-start"
+    alignItems: "center"
   },
 
   iconsContainer: {
-    flex: 0.2
+    flex: 0.13,
+    alignSelf: "flex-start"
   },
 
   icon: {
@@ -41,14 +43,15 @@ export const styles = StyleSheet.create({
   },
 
   pairNameContainer: {
-    flex: 0.5,
+    flex: 0.45,
     flexDirection: FlexDirection.COLUMN,
+    paddingLeft: 10,
     justifyContent: "space-between",
   },
 
   pairName: {
     color: '#ffffff',
-    fontSize: 20,
+    fontSize: 18,
   },
 
   pairFullName: {
@@ -56,8 +59,12 @@ export const styles = StyleSheet.create({
     fontSize: 14
   },
 
+  chartContainer: {
+    flex: 0.17,
+  },
+
   pairChangeAndRatioContainer: {
-    flex: 0.3,
+    flex: 0.25,
     alignItems: "flex-end"
   },
 

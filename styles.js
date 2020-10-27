@@ -1,12 +1,10 @@
 import {StyleSheet} from "react-native";
+import {BackgroundColor} from "./enum/styles/BackgroundColor";
 
 const styles = StyleSheet.create({
-  statusBar: {
-    backgroundColor: '#161730'
-  },
   container: {
     flex: 1,
-    backgroundColor: '#161730',
+    backgroundColor: BackgroundColor.APP,
     color: '#ffffff',
     alignItems: "stretch"
   },

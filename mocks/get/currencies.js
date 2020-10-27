@@ -2,6 +2,8 @@ const faker = require('faker');
 
 const currencyCodesList = require('../data/currencyList');
 
+const myNet = require('../../netconfig');
+
 const respond = () => {
   //Массив для хранения всех валютных пар (код1, код2, отношение 1/2)
   const currencyPairs = [];
@@ -18,11 +20,20 @@ const respond = () => {
     otherCurrencies.forEach((cur2) => {
       curPair = {
         id: faker.random.uuid(),
-        icon1: 'http://10.1.30.43:8080/icons/currencies/' + cur1.code.toLowerCase() + '.png',
-        icon2: 'http://10.1.30.43:8080/icons/currencies/' + cur2.code.toLowerCase() + '.png',
+        icon1: 'http://' + myNet.IP + ':' + myNet.httpPort + '/icons/currencies/' + cur1.code.toLowerCase() + '.png',
+        icon2: 'http://' + myNet.IP + ':' + myNet.httpPort + '/icons/currencies/' + cur2.code.toLowerCase() + '.png',
         title: cur1.code + ' \u21C4 ' + cur2.code,
         currency1: cur1.name,
         currency2: cur2.name,
+        chartData: [
+          faker.random.number(20),
+          faker.random.number(20),
+          faker.random.number(20),
+          faker.random.number(20),
+          faker.random.number(20),
+          faker.random.number(20),
+          faker.random.number(20)
+        ],
         ratio: (faker.random.number(10000) / (faker.random.number(10000) + 1)).toPrecision(4),
         change: (faker.random.number(100) / (faker.random.number(100) + 1)).toPrecision(2),
         sign: (faker.random.number(1) === 1) ? '+' : '-'
@@ -39,6 +50,6 @@ const respond = () => {
 module.exports = {
   path: '/currencies',
   cache: false,
-  delay: 500,
+  delay: 0,
   template: respond
 };

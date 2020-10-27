@@ -5,6 +5,7 @@ export interface ICurrencyPair {
   title: string,
   currency1: string,
   currency2: string,
+  chartData: Array<number>,
   ratio: number,
   change: number,
   sign: string
