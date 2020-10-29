@@ -55,7 +55,7 @@ const App = () => {
             onChangeText={setInputValue}
             value={inputValue}
             placeholder={'Search...'}
-            placeholderTextColor='#ffffff'
+            placeholderTextColor={'#ffffff'}
           />
         </View>
         <View style={styles.pairsListContainer}>

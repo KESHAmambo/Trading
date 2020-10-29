@@ -1,6 +1,11 @@
 import { StyleSheet } from "react-native";
 import { FlexDirection } from "../../../enum/styles/FlexDirection";
 import { BackgroundColor } from "../../../enum/styles/BackgroundColor";
+import { JustifyContent } from "../../../enum/styles/JustifyContent";
+import { AlignItems } from "../../../enum/styles/AlignItems";
+import { AlignSelf } from "../../../enum/styles/AlignSelf";
+import { BorderColor } from "../../../enum/styles/BorderColor";
+import { Color } from "../../../enum/styles/Color";
 
 export const styles = StyleSheet.create({
   pairContainer: {
@@ -14,30 +19,28 @@ export const styles = StyleSheet.create({
     borderRadius: 12,
 
     padding: 10,
-    justifyContent: "space-between",
-    alignItems: "center"
+    justifyContent: JustifyContent.SPACE_BETWEEN,
+    alignItems: AlignItems.CENTER,
+    alignSelf: AlignSelf.FLEX_START
   },
 
   iconsContainer: {
     flex: 0.13,
-    alignSelf: "flex-start"
+    alignSelf: AlignSelf.FLEX_START
   },
-
   icon: {
     borderWidth: 3,
-    borderColor: '#363762',
+    borderColor: BorderColor.ICON,
     borderRadius: 20,
     height: 32,
     width: 32,
     position: "absolute"
   },
-
-  position1: {
+  iconPosition1: {
     top: 0,
     left: 0,
   },
-
-  position2: {
+  iconPosition2: {
     top: 16,
     left: 16
   },
@@ -46,16 +49,14 @@ export const styles = StyleSheet.create({
     flex: 0.45,
     flexDirection: FlexDirection.COLUMN,
     paddingLeft: 10,
-    justifyContent: "space-between",
+    justifyContent: JustifyContent.SPACE_BETWEEN,
   },
-
   pairName: {
-    color: '#ffffff',
+    color: Color.PAIR_NAME,
     fontSize: 18,
   },
-
   pairFullName: {
-    color: '#8082c6',
+    color: Color.PAIR_FULL_NAME,
     fontSize: 14
   },
 
@@ -65,11 +66,10 @@ export const styles = StyleSheet.create({
 
   pairChangeAndRatioContainer: {
     flex: 0.25,
-    alignItems: "flex-end"
+    alignItems: AlignItems.FLEX_END
   },
-
   pairRatio: {
-    color: '#ffffff',
+    color: Color.PAIR_RATIO,
     fontSize: 18,
   },
 
@@ -79,13 +79,13 @@ export const styles = StyleSheet.create({
     paddingVertical: 1,
   },
   backgroundGreen: {
-    backgroundColor: '#22e02d'
+    backgroundColor: BackgroundColor.GREEN
   },
   backgroundRed: {
-    backgroundColor: '#ff3180'
+    backgroundColor: BackgroundColor.RED
   },
   pairChange: {
-    color: '#ffffff',
+    color: Color.PAIR_CHANGE,
     fontSize: 14
   },
 });

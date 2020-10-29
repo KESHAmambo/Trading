@@ -1,6 +1,6 @@
 import React from "react";
 import { Dimensions, Image, Text, View } from "react-native";
-import { styles } from "./style";
+import { styles } from "./styles";
 import { ICurrencyPair } from "../../../types";
 import LineChart from "react-native-chart-kit/dist/line-chart";
 import { BackgroundColor } from "../../../enum/styles/BackgroundColor";
@@ -36,7 +36,7 @@ const FuncComponent = (props: IProps) => {
           source={{uri: icon1}}
           style={[
             styles.icon,
-            styles.position1
+            styles.iconPosition1
           ]}
         />
 
@@ -44,7 +44,7 @@ const FuncComponent = (props: IProps) => {
           source={{uri: icon2}}
           style={[
             styles.icon,
-            styles.position2
+            styles.iconPosition2
           ]}
         />
       </View>
