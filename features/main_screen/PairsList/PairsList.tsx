@@ -22,12 +22,6 @@ const renderItem: ListRenderItem<ICurrencyPair> = (info) => {
   );
 };
 
-/*const getItemLayout = (data: (ICurrencyPair[] | null | undefined), index: number) => ({
-  length: 20,
-  offset: 20 * index,
-  index
-})*/
-
 const FuncComponent = (props: IProps) => {
 
   const {
@@ -45,9 +39,8 @@ const FuncComponent = (props: IProps) => {
       keyExtractor={keyExtractor}
 
       //Эти пропсы я взял из гайда по оптимизации FlatList
-      //removeClippedSubviews={true}
-      //initialNumToRender={22}
-      //getItemLayout={getItemLayout}
+      removeClippedSubviews={true}
+      initialNumToRender={10}
     />
   );
 }

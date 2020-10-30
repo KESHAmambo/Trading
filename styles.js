@@ -1,53 +1,31 @@
 import {StyleSheet} from "react-native";
-import {Colors} from "react-native/Libraries/NewAppScreen";
+import {BackgroundColor} from "./enum/styles/BackgroundColor";
+import {Color} from "./enum/styles/Color";
+import {AlignItems} from "./enum/styles/AlignItems";
 
 const styles = StyleSheet.create({
-  sectionPair: {
-    borderColor: Colors.gray,
-    borderWidth: 2,
+  container: {
+    flex: 1,
+    backgroundColor: BackgroundColor.APP,
+    alignItems: AlignItems.FLEX_START
   },
-  pairName: {
-    fontSize: 20,
+  searchingFieldContainer: {
+    height: 45,
+    marginTop: 10,
+    marginBottom: 5,
+    marginHorizontal: 10,
+    paddingHorizontal: 5,
+
+    borderRadius: 12,
+    backgroundColor: BackgroundColor.SEARCHING_FIELD,
   },
-  pairRatio: {
-    fontSize: 14,
+  searchingField: {
+    color: Color.SEARCHING_FIELD,
+    fontSize: 18
   },
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
+  pairsListContainer: {
+    flex: 1
+  }
 });
 
 export default styles;
