@@ -11,13 +11,10 @@ export const styles = StyleSheet.create({
   pairContainer: {
     flex: 1,
     flexDirection: FlexDirection.ROW,
-
     marginVertical: 5,
     marginHorizontal: 10,
-
     backgroundColor: BackgroundColor.PAIR,
     borderRadius: 12,
-
     padding: 10,
     justifyContent: JustifyContent.SPACE_BETWEEN,
     alignItems: AlignItems.CENTER,
@@ -28,6 +25,7 @@ export const styles = StyleSheet.create({
     flex: 0.13,
     alignSelf: AlignSelf.FLEX_START
   },
+
   icon: {
     borderWidth: 3,
     borderColor: BorderColor.ICON,
@@ -36,10 +34,12 @@ export const styles = StyleSheet.create({
     width: 32,
     position: "absolute"
   },
+
   iconPosition1: {
     top: 0,
     left: 0,
   },
+
   iconPosition2: {
     top: 16,
     left: 16
@@ -51,12 +51,14 @@ export const styles = StyleSheet.create({
     paddingLeft: 10,
     justifyContent: JustifyContent.SPACE_BETWEEN,
   },
+
   pairName: {
-    color: Color.PAIR_NAME,
+    color: Color.WHITE,
     fontSize: 18,
   },
+
   pairFullName: {
-    color: Color.PAIR_FULL_NAME,
+    color: Color.BRIGHT_VIOLET,
     fontSize: 14
   },
 
@@ -68,8 +70,9 @@ export const styles = StyleSheet.create({
     flex: 0.25,
     alignItems: AlignItems.FLEX_END
   },
+
   pairRatio: {
-    color: Color.PAIR_RATIO,
+    color: Color.WHITE,
     fontSize: 18,
   },
 
@@ -78,14 +81,17 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 7,
     paddingVertical: 1,
   },
+
   backgroundGreen: {
     backgroundColor: BackgroundColor.GREEN
   },
+
   backgroundRed: {
     backgroundColor: BackgroundColor.RED
   },
+
   pairChange: {
-    color: Color.PAIR_CHANGE,
+    color: Color.WHITE,
     fontSize: 14
   },
 });

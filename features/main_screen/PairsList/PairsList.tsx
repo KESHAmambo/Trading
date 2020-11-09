@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FlatList, ListRenderItem } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
 import { CurrencyPair } from "../CurrencyPair/CurrencyPair";
-import { ICurrencyPair } from "../../../types";
+import { ICurrencyPair } from "../../../redux_store/types";
+import { fetchCurrencyPairs, selectStatus } from "./pairsListSlice";
 
 interface IProps {
-  currencyPairs: Array<ICurrencyPair>,
-  isRefreshing: boolean,
-  onRefresh: () => void
+  currencyPairs: ICurrencyPair[],
+  // isRefreshing: boolean,
+  // onRefresh: () => void
 }
 
 const keyExtractor = (item: ICurrencyPair) => item.id;
@@ -22,13 +24,27 @@ const renderItem: ListRenderItem<ICurrencyPair> = (info) => {
   );
 };
 
+// const onRefresh = dispatch(fetchCurrencyPairs());
+
 const FuncComponent = (props: IProps) => {
+  const dispatch = useDispatch();
+  const isRefreshing = useSelector(selectStatus)
 
   const {
     currencyPairs,
-    isRefreshing,
-    onRefresh
+    // isRefreshing,
+    // onRefresh
   } = props;
+
+  useEffect(() => {
+    if (!isRefreshing) {
+      dispatch(fetchCurrencyPairs())
+    }
+  }, [])    //deps from guide: [isRefreshing, dispatch]
+
+  const onRefresh = () => {
+    if (!isRefreshing) dispatch(fetchCurrencyPairs())
+  }
 
   return (
     <FlatList

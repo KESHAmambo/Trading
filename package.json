@@ -12,9 +12,13 @@
     "watch": "nodemon --watch mocks --exec dyson mocks"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.4.0",
+    "@types/react-redux": "^7.1.11",
     "react": "16.13.1",
     "react-native": "0.63.3",
-    "react-native-charts-wrapper": "^0.5.7"
+    "react-native-charts-wrapper": "^0.5.7",
+    "react-redux": "^7.2.2",
+    "redux": "^4.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

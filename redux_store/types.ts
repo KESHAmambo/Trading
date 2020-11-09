@@ -10,3 +10,13 @@ export interface ICurrencyPair {
   change: number,
   sign: string
 }
+
+export interface IPairsState {
+  pairs: Array<ICurrencyPair>,
+  isRefreshing: boolean
+}
+
+export interface IRootState {
+  pairs: IPairsState
+}
+

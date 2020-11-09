@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: BackgroundColor.APP,
-    alignItems: AlignItems.FLEX_START
+    alignItems: AlignItems.STRETCH
   },
   searchingFieldContainer: {
     height: 45,
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     backgroundColor: BackgroundColor.SEARCHING_FIELD,
   },
   searchingField: {
-    color: Color.SEARCHING_FIELD,
+    color: Color.WHITE,
     fontSize: 18
   },
   pairsListContainer: {
