@@ -1,51 +1,48 @@
-import { createSlice, createAsyncThunk, AsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, SliceCaseReducers } from "@reduxjs/toolkit";
 
 import { ICurrencyPair, IPairsState, IRootState } from "../../../redux_store/types";
 
 const myNet = require('../../../netconfig')
 
-type GenericAsyncThunk = AsyncThunk<unknown, unknown, any>
-
-type PendingAction = ReturnType<GenericAsyncThunk['pending']>
-// type RejectedAction = ReturnType<GenericAsyncThunk['rejected']>
-type FulfilledAction = ReturnType<GenericAsyncThunk['fulfilled']>
-
 export const fetchCurrencyPairs = createAsyncThunk(
   'pairs/fetchCurrencyPairs',
-  () => (
-    fetch('https://' + myNet.apiPath + '/currencies')
-      .then((response) => response.json())
-      .then((json) => json.currencyPairs)
-  ));
+  () => {
+    return fetch('http://' + myNet.apiPath + '/currencies')
+      .then((response) => (response.json()))
+      .then((json) => (json.currencyPairs as ICurrencyPair[]))
+  });
 
-export const slice = createSlice({
+export const slice = createSlice<IPairsState, SliceCaseReducers<IPairsState>>({
   name: 'pairs',
   initialState: {
-    pairs: [] as ICurrencyPair[],
+    pairs: [],
     isRefreshing: false
   },
-  reducers: {
-
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addMatcher(
-        (action): action is PendingAction => action.type.endsWith('/pending'),
-        (state: IPairsState) => {
+      .addCase(
+        fetchCurrencyPairs.pending,
+        state => {
           state.isRefreshing = true;
         }
       )
-      .addMatcher(
-        (action): action is FulfilledAction => action.type.endsWith('/fulfilled'),
-        (state: IPairsState, action) => {
-          state.pairs = action.payload as ICurrencyPair[];
+      .addCase(
+        fetchCurrencyPairs.fulfilled,
+        (state, action) => {
+          state.pairs = action.payload;
+          state.isRefreshing = false;
+        }
+      )
+      .addCase(
+        fetchCurrencyPairs.rejected,
+        (state, action) => {
+          console.log('fetch rejected: ' + action);
           state.isRefreshing = false;
         }
       )
   }
 })
-
-//export const { getCurPairs } = slice.actions;
 
 export default slice.reducer;
 

@@ -7,9 +7,7 @@ import { ICurrencyPair } from "../../../redux_store/types";
 import { fetchCurrencyPairs, selectStatus } from "./pairsListSlice";
 
 interface IProps {
-  currencyPairs: ICurrencyPair[],
-  // isRefreshing: boolean,
-  // onRefresh: () => void
+  currencyPairs: ICurrencyPair[]
 }
 
 const keyExtractor = (item: ICurrencyPair) => item.id;
@@ -24,20 +22,18 @@ const renderItem: ListRenderItem<ICurrencyPair> = (info) => {
   );
 };
 
-// const onRefresh = dispatch(fetchCurrencyPairs());
-
 const FuncComponent = (props: IProps) => {
   const dispatch = useDispatch();
   const isRefreshing = useSelector(selectStatus)
 
   const {
-    currencyPairs,
-    // isRefreshing,
-    // onRefresh
+    currencyPairs
   } = props;
 
   useEffect(() => {
+    console.log('in useEffect')
     if (!isRefreshing) {
+      console.log('in IF')
       dispatch(fetchCurrencyPairs())
     }
   }, [])    //deps from guide: [isRefreshing, dispatch]
