@@ -1,4 +1,14 @@
+const apiPath = 'http://10.1.30.43:3000';
+const staticSourcesPath = 'http://10.1.30.43:8080';
+
+const createApiURL = (localPath) => {
+  return (
+    apiPath + localPath
+  )
+}
+
 module.exports = {
-  apiPath: '10.1.30.43:3000',
-  staticSourcesPath: '10.1.30.43:8080'
+  apiPath,
+  staticSourcesPath,
+  createApiURL
 }
