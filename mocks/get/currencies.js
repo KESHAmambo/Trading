@@ -2,10 +2,10 @@ const faker = require('faker');
 
 const currencyCodesList = require('../data/currencyList');
 
-const myNet = require('../../netconfig');
+const netConfig = require('../../netconfig');
 
 const respond = () => {
-  //Массив для хранения всех валютных пар (код1, код2, отношение 1/2)
+  //Массив для хранения всех валютных пар
   const currencyPairs = [];
 
   //На всякий случай сортируем список валют по алфавиту
@@ -20,8 +20,8 @@ const respond = () => {
     otherCurrencies.forEach((cur2) => {
       curPair = {
         id: faker.random.uuid(),
-        icon1: 'http://' + myNet.staticSourcesPath + '/icons/currencies/' + cur1.code.toLowerCase() + '.png',
-        icon2: 'http://' + myNet.staticSourcesPath + '/icons/currencies/' + cur2.code.toLowerCase() + '.png',
+        icon1: netConfig.staticSourcesPath + '/icons/currencies/' + cur1.code.toLowerCase() + '.png',
+        icon2: netConfig.staticSourcesPath + '/icons/currencies/' + cur2.code.toLowerCase() + '.png',
         title: cur1.code + ' \u21C4 ' + cur2.code,
         currency1: cur1.name,
         currency2: cur2.name,

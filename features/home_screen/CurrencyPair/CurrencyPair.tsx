@@ -1,7 +1,7 @@
 import React from "react";
 import { Dimensions, Image, Text, View } from "react-native";
 import { styles } from "./styles";
-import { ICurrencyPair } from "../../../redux_store/types";
+import { ICurrencyPair } from "./types";
 import LineChart from "react-native-chart-kit/dist/line-chart";
 import { BackgroundColor } from "../../../enum/styles/BackgroundColor";
 

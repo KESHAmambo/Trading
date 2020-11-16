@@ -8,15 +8,5 @@ export interface ICurrencyPair {
   chartData: Array<number>,
   ratio: number,
   change: number,
-  sign: string
+  sign: '+' | '-'
 }
-
-export interface IPairsState {
-  pairs: Array<ICurrencyPair>,
-  isRefreshing: boolean
-}
-
-export interface IRootState {
-  pairs: IPairsState
-}
-

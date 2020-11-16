@@ -1,19 +1,20 @@
 import { createAsyncThunk, createSlice, SliceCaseReducers } from "@reduxjs/toolkit";
+import { IPairsState } from "./types";
+import { createApiURL } from "../../../netconfig";
+import { ICurrencyPair } from "../../../features/home_screen/CurrencyPair/types";
 
-import { ICurrencyPair, IPairsState, IRootState } from "../../../redux_store/types";
-
-const myNet = require('../../../netconfig')
+export const pairsPrefix = 'pairs';
 
 export const fetchCurrencyPairs = createAsyncThunk(
-  'pairs/fetchCurrencyPairs',
+  pairsPrefix + '/fetchCurrencyPairs',
   () => {
-    return fetch('http://' + myNet.apiPath + '/currencies')
+    return fetch(createApiURL('/currencies'))
       .then((response) => (response.json()))
       .then((json) => (json.currencyPairs as ICurrencyPair[]))
   });
 
-export const slice = createSlice<IPairsState, SliceCaseReducers<IPairsState>>({
-  name: 'pairs',
+const slice = createSlice<IPairsState, SliceCaseReducers<IPairsState>>({
+  name: pairsPrefix,
   initialState: {
     pairs: [],
     isRefreshing: false
@@ -44,7 +45,4 @@ export const slice = createSlice<IPairsState, SliceCaseReducers<IPairsState>>({
   }
 })
 
-export default slice.reducer;
-
-export const selectCurrencyPairs = (state: IRootState) => state.pairs.pairs;
-export const selectStatus = (state: IRootState) => state.pairs.isRefreshing;
+export const pairsReducer = slice.reducer;

@@ -3,8 +3,9 @@ import { FlatList, ListRenderItem } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 import { CurrencyPair } from "../CurrencyPair/CurrencyPair";
-import { ICurrencyPair } from "../../../redux_store/types";
-import { fetchCurrencyPairs, selectStatus } from "./pairsListSlice";
+import { ICurrencyPair } from "../CurrencyPair/types";
+import { fetchCurrencyPairs } from "../../../store/features/pairsList";
+import { isCurrencyPairsListRefreshingSelector } from "../../../store/features/pairsList/selectors";
 
 interface IProps {
   currencyPairs: ICurrencyPair[]
@@ -24,22 +25,20 @@ const renderItem: ListRenderItem<ICurrencyPair> = (info) => {
 
 const FuncComponent = (props: IProps) => {
   const dispatch = useDispatch();
-  const isRefreshing = useSelector(selectStatus)
+  const isRefreshing = useSelector(isCurrencyPairsListRefreshingSelector)
 
   const {
     currencyPairs
   } = props;
 
   useEffect(() => {
-    console.log('in useEffect')
-    if (!isRefreshing) {
-      console.log('in IF')
-      dispatch(fetchCurrencyPairs())
-    }
+    dispatch(fetchCurrencyPairs())
   }, [])    //deps from guide: [isRefreshing, dispatch]
 
   const onRefresh = () => {
-    if (!isRefreshing) dispatch(fetchCurrencyPairs())
+    if (!isRefreshing) {
+      dispatch(fetchCurrencyPairs())
+    }
   }
 
   return (
