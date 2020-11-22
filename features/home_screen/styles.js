@@ -1,10 +1,10 @@
 import {StyleSheet} from "react-native";
-import {BackgroundColor} from "./enum/styles/BackgroundColor";
-import {Color} from "./enum/styles/Color";
-import {AlignItems} from "./enum/styles/AlignItems";
+import {BackgroundColor} from "../../enum/styles/BackgroundColor";
+import {Color} from "../../enum/styles/Color";
+import {AlignItems} from "../../enum/styles/AlignItems";
 
-const styles = StyleSheet.create({
-  container: {
+export const styles = StyleSheet.create({
+  mainContainer: {
     flex: 1,
     backgroundColor: BackgroundColor.APP,
     alignItems: AlignItems.STRETCH
@@ -27,5 +27,3 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
-
-export default styles;

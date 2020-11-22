@@ -5,18 +5,34 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./features/home_screen/HomeScreen";
 import { BackgroundColor } from "./enum/styles/BackgroundColor";
 import { StatusBar } from "react-native";
+import { PairDetailsScreen } from "./features/pair_details_screen/PairDetailsScreen";
+import { Color } from "./enum/styles/Color";
+import { IRootStackParamList } from "./features/types";
 
-const Stack = createStackNavigator();
+const RootStack = createStackNavigator<IRootStackParamList>();
 
 const App = () => {
 
   return (
     <>
       <StatusBar backgroundColor={BackgroundColor.APP}/>
+
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name={'Home'} component={HomeScreen}/>
-        </Stack.Navigator>
+        <RootStack.Navigator
+          initialRouteName={'Home'}
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: BackgroundColor.APP
+            },
+            headerTintColor: Color.WHITE,
+          }}
+        >
+          <RootStack.Screen name={'Home'} component={HomeScreen}/>
+          <RootStack.Screen
+            name={'PairDetails'}
+            component={PairDetailsScreen}
+          />
+        </RootStack.Navigator>
       </NavigationContainer>
     </>
   );

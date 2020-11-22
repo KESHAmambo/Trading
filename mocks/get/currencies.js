@@ -22,9 +22,10 @@ const respond = () => {
         id: faker.random.uuid(),
         icon1: netConfig.staticSourcesPath + '/icons/currencies/' + cur1.code.toLowerCase() + '.png',
         icon2: netConfig.staticSourcesPath + '/icons/currencies/' + cur2.code.toLowerCase() + '.png',
-        title: cur1.code + ' \u21C4 ' + cur2.code,
-        currency1: cur1.name,
-        currency2: cur2.name,
+        currencyCode1: cur1.code,
+        currencyCode2: cur2.code,
+        currencyName1: cur1.name,
+        currencyName2: cur2.name,
         chartData: [
           faker.random.number(20),
           faker.random.number(20),

@@ -2,28 +2,38 @@ import React, { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { currencyPairsListSelector } from "../../store/features/pairsList/selectors";
 import { TextInput, View } from "react-native";
-import styles from "../../styles";
+import { styles } from "./styles";
 import { Color } from "../../enum/styles/Color";
 import { PairsList } from "./PairsList/PairsList";
+import { StackScreenProps } from "@react-navigation/stack";
+import { IRootStackParamList } from "../types";
 
-const HomeScreen = () => {
-  const [inputValue, setInputValue] = useState('');
+type IProps = StackScreenProps<IRootStackParamList, 'Home'>
+
+const HomeScreen = (props: IProps) => {
+
+  const {
+    // route,
+    // navigation
+  } = props;
+
+  const [inputValue, setInputValue] = useState<string>('');
 
   const curPairs = useSelector(currencyPairsListSelector);
 
-  const filteredPairs = useMemo(() => {
+  const filteredBySearchPairs = useMemo(() => {
     if (inputValue === '') {
       return curPairs;
     } else {
       return curPairs.filter((pair) => (
-        ((pair.title + pair.currency1 + pair.currency2)
+        ((pair.currencyCode1 + pair.currencyCode2 + pair.currencyName1 + pair.currencyName2)
           .toUpperCase().indexOf(inputValue.toUpperCase()) !== -1)
       ));
     }
   }, [inputValue, curPairs]);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.mainContainer}>
       <View style={styles.searchingFieldContainer}>
         <TextInput
           style={styles.searchingField}
@@ -35,7 +45,7 @@ const HomeScreen = () => {
       </View>
       <View style={styles.pairsListContainer}>
         <PairsList
-          currencyPairs={filteredPairs}
+          currencyPairs={filteredBySearchPairs}
         />
       </View>
     </View>
