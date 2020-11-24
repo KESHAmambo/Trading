@@ -1,28 +1,41 @@
 const faker = require('faker')
 
-const respond = () => {
-  let chartData = [];
-  let value = faker.random.number(100)
+const getRandomChartData = (amount) => {
+  const chartData = [];
+  const power = Math.pow(10, faker.random.number(5) - 3)
+  let initValue = faker.random.number(100) + 1;
   let diff = 0;
 
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < amount; i++) {
     diff = faker.random.number(10) - 5;
-    value += diff;
-    chartData.push(value)
+    if (initValue + diff <= 0) {
+      diff *= -1;
+    }
+    initValue += diff;
+    chartData.push(initValue * power)
   }
 
+  return chartData;
+}
+
+const getChartLabelsForLastNDays = (nDays, amount) => {
   const currentDate = Date.now();
-
   const dates = [];
+  const step = Math.floor(nDays/amount) + 1;
 
-
-  for (let i = -30; i < 0; i += 8) {
+  for (let i = nDays; i > 0; i -= step) {
     let newDate = new Date();
-    newDate.setTime(currentDate + (i * 1000 * 3600 * 24));
+    newDate.setTime(currentDate - (i * 1000 * 3600 * 24));
     dates.push(newDate);
   }
 
-  let chartLabels = dates.map((date) => (date.toLocaleDateString()));
+  return dates.map((date) => (date.toLocaleDateString()));
+}
+
+const respond = () => {
+
+  const chartData = getRandomChartData(30);
+  const chartLabels = getChartLabelsForLastNDays(30, 4);
 
   return {
     chartData,

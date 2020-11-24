@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { ICurrencyPair } from "../home_screen/CurrencyPair/types";
 import { IPairName } from "./PairTitle/types";
 import { IRootStackParamList } from "../types";
+import { IChartData } from "./PairChart/types";
 
 type IProps = StackScreenProps<IRootStackParamList, 'PairDetails'>
 
@@ -18,7 +19,7 @@ const selectCurrencyPairById = (state: IRootState, pairId: string): ICurrencyPai
 }
 
 //Пока эта функция меняет местами валюты только в заголовоке
-const reversedPairName = (pairName: IPairName) => {
+const getReversedPairName = (pairName: IPairName) => {
   let {
     currencyCode1,
     currencyCode2
@@ -28,6 +29,10 @@ const reversedPairName = (pairName: IPairName) => {
     currencyCode1: currencyCode2,
     currencyCode2: currencyCode1
   })
+}
+
+const getReversedChartData = (data: IChartData) => {
+  return data.map((value) => 1/value)
 }
 
 export const PairDetailsScreen = (props: IProps) => {
@@ -54,7 +59,6 @@ export const PairDetailsScreen = (props: IProps) => {
   const [chartData, setChartData] = useState<number[]>([0,]);
   const [chartLabels, setChartLabels] = useState<string[]>([]);
   const [isChartDataRefreshing, setIsChartDataRefreshing] = useState<boolean>(false);
-  const [isChartDataFetchingFirstTime, setIsChartDataFetchingFirstTime] = useState<boolean>(true);
 
   const fetchChartData = () => {
     setIsChartDataRefreshing(true);
@@ -63,12 +67,6 @@ export const PairDetailsScreen = (props: IProps) => {
       .then((json) => {
         setChartData(json.chartData as number[]);
         setChartLabels(json.chartLabels as string[]);
-
-        //Я запихнул сюда реверс пары, потому что этот фетч
-        //вызывается как при маунте, так и при нажатии на кнопку реверса
-        if (!isChartDataFetchingFirstTime) {
-          setPairName(reversedPairName(pairName));
-        }
       })
       .catch((error) => {
         console.log('fetch failed: ' + error)
@@ -80,13 +78,13 @@ export const PairDetailsScreen = (props: IProps) => {
 
   const onButtonPress = () => {
     if (!isChartDataRefreshing) {
-      fetchChartData();
+      setPairName(getReversedPairName(pairName));
+      setChartData(getReversedChartData(chartData))
     }
   };
 
   useEffect(() => {
     fetchChartData();
-    setIsChartDataFetchingFirstTime(false);
   }, [])
 
   return (

@@ -3,10 +3,11 @@ import { Dimensions, View } from "react-native";
 import { BackgroundColor } from "../../../enum/styles/BackgroundColor";
 import LineChart from "react-native-chart-kit/dist/line-chart";
 import { styles } from "./styles";
+import { IChartData, IChartLabels } from "./types";
 
 interface IProps {
-  chartData: number[],
-  chartLabels: string[]
+  chartData: IChartData,
+  chartLabels: IChartLabels
 }
 
 const FuncComponent = (props: IProps) => {
@@ -45,7 +46,7 @@ const FuncComponent = (props: IProps) => {
         style={{
           position: "absolute",
           top: 0,
-          left: -15
+          left: -5
         }}
       />
     </View>
