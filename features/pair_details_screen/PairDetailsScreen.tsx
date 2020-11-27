@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { StackScreenProps } from "@react-navigation/stack";
 import { PairTitle } from "./PairTitle/PairTitle";
 import { styles } from "./styles";
-import { PairChart } from "./PairChart/PairChart";
 import { createApiURL } from "../../netconfig"
 import { IRootState } from "../../store/types";
 import { useSelector } from "react-redux";
@@ -11,6 +10,7 @@ import { ICurrencyPair } from "../home_screen/CurrencyPair/types";
 import { IPairName } from "./PairTitle/types";
 import { IRootStackParamList } from "../types";
 import { IChartData } from "./PairChart/types";
+import { PairChart } from "./PairChart/PairChart";
 
 type IProps = StackScreenProps<IRootStackParamList, 'PairDetails'>
 
@@ -32,7 +32,14 @@ const getReversedPairName = (pairName: IPairName) => {
 }
 
 const getReversedChartData = (data: IChartData) => {
-  return data.map((value) => 1/value)
+  return data.map((chartPoint) => {
+    const { y } = chartPoint;
+
+    return ({
+      ...chartPoint,
+      y: 1 / y
+    });
+  })
 }
 
 export const PairDetailsScreen = (props: IProps) => {
@@ -54,10 +61,7 @@ export const PairDetailsScreen = (props: IProps) => {
     currencyCode2: currencyPair.currencyCode2
   })
 
-  //Важно, чтобы начальное значение chartData не было пустым массивом,
-  //иначе самый первый рендер графика завершится ошибкой
-  const [chartData, setChartData] = useState<number[]>([0,]);
-  const [chartLabels, setChartLabels] = useState<string[]>([]);
+  const [chartData, setChartData] = useState<IChartData>([]);
   const [isChartDataRefreshing, setIsChartDataRefreshing] = useState<boolean>(false);
 
   const fetchChartData = () => {
@@ -65,8 +69,7 @@ export const PairDetailsScreen = (props: IProps) => {
     fetch(createApiURL('/chartData'))
       .then((response) => (response.json()))
       .then((json) => {
-        setChartData(json.chartData as number[]);
-        setChartLabels(json.chartLabels as string[]);
+        setChartData(json.chartData as IChartData);
       })
       .catch((error) => {
         console.log('fetch failed: ' + error)
@@ -79,7 +82,7 @@ export const PairDetailsScreen = (props: IProps) => {
   const onButtonPress = () => {
     if (!isChartDataRefreshing) {
       setPairName(getReversedPairName(pairName));
-      setChartData(getReversedChartData(chartData))
+      setChartData(getReversedChartData(chartData));
     }
   };
 
@@ -95,7 +98,6 @@ export const PairDetailsScreen = (props: IProps) => {
       />
       <PairChart
         chartData={chartData}
-        chartLabels={chartLabels}
       />
     </View>
   )

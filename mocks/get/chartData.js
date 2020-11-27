@@ -1,45 +1,66 @@
 const faker = require('faker')
 
-const getRandomChartData = (amount) => {
-  const chartData = [];
+const nDays = 31;
+
+const getRandomChartData = (nDays) => {
+  const chartValues = [];
   const power = Math.pow(10, faker.random.number(5) - 3)
   let initValue = faker.random.number(100) + 1;
   let diff = 0;
 
-  for (let i = 0; i < amount; i++) {
+  for (let i = 0; i < nDays; i++) {
     diff = faker.random.number(10) - 5;
     if (initValue + diff <= 0) {
       diff *= -1;
     }
     initValue += diff;
-    chartData.push(initValue * power)
+    chartValues.push(initValue * power)
   }
 
-  return chartData;
+  return chartValues;
 }
 
-const getChartLabelsForLastNDays = (nDays, amount) => {
-  const currentDate = Date.now();
-  const dates = [];
-  const step = Math.floor(nDays/amount) + 1;
+//return Array of last nDays in milliseconds since 1970
+// const getChartLabelsForLastNDays = (nDays) => {
+//   const currentDate = Date.now();
+//   const dayDuration = 1000 * 3600 * 24;
+//   const dates = [];
+//
+//   for (let i = nDays; i > 0; i -= 1) {
+//     dates.push(currentDate - (i * dayDuration));
+//   }
+//
+//   return dates;
+// }
 
-  for (let i = nDays; i > 0; i -= step) {
-    let newDate = new Date();
-    newDate.setTime(currentDate - (i * 1000 * 3600 * 24));
-    dates.push(newDate);
+const getChartLabelsForLastNDays = (nDays) => {
+  const currentDate = Date.now();
+  const dayDuration = 1000 * 3600 * 24;
+  const dates = [];
+
+  for (let i = nDays - 1; i >= 0; i -= 1) {
+    dates.push(currentDate / dayDuration - i);
   }
 
-  return dates.map((date) => (date.toLocaleDateString()));
+  return dates;
 }
 
 const respond = () => {
 
-  const chartData = getRandomChartData(30);
-  const chartLabels = getChartLabelsForLastNDays(30, 4);
+  const chartValues = getRandomChartData(nDays);
+  const chartLabels = getChartLabelsForLastNDays(nDays);
+
+  const chartData = [];
+
+  for (let i = 0; i< nDays; i++) {
+    chartData.push({
+      x: chartLabels[i],
+      y: chartValues[i]
+    })
+  }
 
   return {
-    chartData,
-    chartLabels,
+    chartData
   }
 }
 
