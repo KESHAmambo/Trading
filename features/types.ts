@@ -4,3 +4,5 @@ export type IRootStackParamList = {
     pairId: string
   };
 }
+
+export type IMaxMinFunction = (...values: number[]) => number;

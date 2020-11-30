@@ -1,22 +1,60 @@
-import { processColor, Text, View } from "react-native";
+import {
+  Dimensions,
+  GestureResponderEvent,
+  LayoutChangeEvent,
+  LayoutRectangle,
+  processColor,
+  Text,
+  View
+} from "react-native";
 import { ColorValue, ProcessedColorValue } from "react-native-charts-wrapper/node_modules/@types/react-native";
 import React, { useState } from "react";
-import { LineChart, LineValue } from "react-native-charts-wrapper";
+import { Axis, ChartSelectEvent, LineChart, LineValue } from "react-native-charts-wrapper";
 import { IChartData } from "./types";
 import { Color } from "../../../enum/styles/Color";
-import { BackgroundColor } from "../../../enum/styles/BackgroundColor";
+import { styles } from "./styles";
+import { DateLabel } from "../../../enum/styles/ChartLabels";
+import { IMaxMinFunction } from "../../types";
 
 interface IProps {
   chartData: IChartData
 }
 
+//@ts-ignore
+const processColorWrapper: (color?: number | ColorValue) => ProcessedColorValue | null | undefined = (color) => {
+  //@ts-ignore
+  return processColor(color)
+}
+
 const getDateFromDays = (days: number) => {
-  const dayDurationInMilliseconds = 1000*3600*24;
+  const dayDurationInMilliseconds = 1000 * 3600 * 24;
   let date = new Date();
   date.setTime(days * dayDurationInMilliseconds);
 
-  return date.toDateString();
+  return date.toLocaleDateString();
 }
+
+const getMaxMinOfArray = (numArray: number[], maxMinFunction: IMaxMinFunction) => {
+  return maxMinFunction.apply(null, numArray);
+}
+
+const axisProps: Axis = {
+  drawGridLines: true,
+  drawAxisLines: false,
+  drawLabels: true,
+  gridColor: processColorWrapper(Color.DARK_VIOLET),
+  axisLineColor: processColorWrapper(Color.TRANSPARENT),
+  textSize: 12,
+  textColor: processColorWrapper(Color.BRIGHT_VIOLET2),
+  gridDashedLine: {
+    lineLength: 15,
+    spaceLength: 10,
+  }
+}
+
+const onStartShouldSetResponder = (event: GestureResponderEvent) => true;
+const onMoveShouldSetResponder = (event: GestureResponderEvent) => true;
+
 
 const FuncComponent = (props: IProps) => {
 
@@ -26,25 +64,73 @@ const FuncComponent = (props: IProps) => {
 
   const [isChartPressed, setIsChartPressed] = useState<boolean>(false);
   const [selectedPoint, setSelectedPoint] = useState<LineValue | null>(null);
+  const [isPointSelected, setIsPointSelected] = useState<boolean>(false);
+  const [dateLabelLeftPosition, setDateLabelXPosition] = useState<number>(0);
+  const [chartLayout, setChartLayout] = useState<LayoutRectangle | null>(null);
+
+  const chartValues = chartData.map((point) => point.y);
+  const maxValue = getMaxMinOfArray(chartValues, Math.max);
+  const minValue = getMaxMinOfArray(chartValues, Math.min);
+
+  //Опытным путем было получено, что график занимает 75% от области рисования по высоте
+  const distanceFromMinToMaxValue = chartLayout ? 0.75 * chartLayout.height : 0;
+  const distanceFromMinToSelectedValue = selectedPoint?.y ? (selectedPoint.y - minValue) / (maxValue - minValue) * distanceFromMinToMaxValue : 0;
+  const bottomChartOffset = chartLayout ? 0.08 * chartLayout.height : 0;
+  const valueLabelBottomPosition = distanceFromMinToSelectedValue + bottomChartOffset;
+
+  const dateLabelText = selectedPoint?.x ? getDateFromDays(selectedPoint.x) : '';
+  const valueLabelText = selectedPoint?.y ? selectedPoint.y.toPrecision(4) : '';
+
+  const onChartLayout = (event: LayoutChangeEvent) => {
+    setChartLayout(event.nativeEvent.layout)
+  }
+
+  const onPointSelect = (event: ChartSelectEvent) => {
+    if (event.nativeEvent !== null) {
+      setIsChartPressed(true);
+      setIsPointSelected(true);
+      setSelectedPoint({
+        x: event.nativeEvent.x,
+        y: event.nativeEvent.y
+      });
+    }
+  }
+
+  const handleChartTouch = (event: GestureResponderEvent) => {
+    if (isPointSelected) {
+      let xPos = event.nativeEvent.locationX - (DateLabel.WIDTH / 2);
+      if (xPos < 15) {
+        xPos = 15
+      } else if (xPos + DateLabel.WIDTH > Dimensions.get("window").width) {
+        xPos = Dimensions.get("window").width - DateLabel.WIDTH
+      }
+      setDateLabelXPosition(xPos);
+      setIsPointSelected(false);
+    }
+  }
+
+  const handleChartRelease = (event: GestureResponderEvent) => {
+    setIsChartPressed(false);
+    setSelectedPoint(null);
+  }
 
   return (
     <View
-      style={{
-        flex: 0.5,
-        left: -10,
-      }}
-      onStartShouldSetResponder={(event) => true}
-      onMoveShouldSetResponder={(event) => true}
-      onResponderRelease={(event) => {
-        setIsChartPressed(false);
-        setSelectedPoint(null);
-      }}
+      style={styles.chartContainer}
+      onStartShouldSetResponder={onStartShouldSetResponder}
+      onMoveShouldSetResponder={onMoveShouldSetResponder}
+      onResponderMove={handleChartTouch}
+      onResponderRelease={handleChartRelease}
     >
       <LineChart
-        style={{
-          flex: 1
-        }}
+        style={{flex: 1}}
+        onLayout={onChartLayout}
+        onSelect={onPointSelect}
         chartDescription={{text: ''}}
+        drawBorders={false}
+        autoScaleMinMaxEnabled={true}
+        legend={{enabled: false}}
+        marker={{enabled: false}}
         data={{
           dataSets: [{
             label: "currency",
@@ -66,77 +152,48 @@ const FuncComponent = (props: IProps) => {
             }
           }]
         }}
-        drawBorders={false}
-        legend={{enabled: false}}
-        autoScaleMinMaxEnabled={true}
         yAxis={{
           left: {
             enabled: false
           },
           right: {
+            ...axisProps,
             labelCount: 5,
-            drawGridLines: true,
-            gridColor: processColorWrapper(Color.DARK_VIOLET),
-            drawAxisLines: false,
-            axisLineColor: processColorWrapper(Color.TRANSPARENT),
-            drawLabels: true,
-            textSize: 14,
-            textColor: processColorWrapper(Color.BRIGHT_VIOLET2),
-            gridDashedLine: {
-              lineLength: 15,
-              spaceLength: 10,
-            }
           }
         }}
         xAxis={{
+          ...axisProps,
           timeUnit: "DAYS",
           valueFormatter: "date",
           valueFormatterPattern: "YYYY-MM-dd",
           labelCount: 4,
           position: "BOTTOM",
-          drawGridLines: true,
-          gridColor: processColorWrapper(Color.DARK_VIOLET),
-          drawAxisLines: false,
-          axisLineColor: processColorWrapper(Color.TRANSPARENT),
-          textColor: processColorWrapper(Color.BRIGHT_VIOLET2),
-          textSize: 14,
-          gridDashedLine: {
-            lineLength: 15,
-            spaceLength: 10,
-          }
-        }}
-        marker={{
-          enabled: false,
-        }}
-
-        onSelect={(event) => {
-          if (event.nativeEvent !== null) {
-            setIsChartPressed(true);
-            setSelectedPoint({
-              x: event.nativeEvent.x,
-              y: event.nativeEvent.y
-            })
-          }
         }}
       />
-      <View style={{
-        backgroundColor: BackgroundColor.SEARCHING_FIELD,
-        position: "absolute",
-        top: 290,
-        left: 15
-      }}>
-        <Text>
-          {selectedPoint?.x ? getDateFromDays(selectedPoint.x) : ''}
+      <View style={isChartPressed ?
+        {
+          ...styles.labelContainer,
+          bottom: -5,
+          left: dateLabelLeftPosition
+        }
+        :
+        styles.emptyContainer
+      }>
+        <Text style={styles.labelText}>
+          {dateLabelText}
         </Text>
       </View>
-      <View style={{
-        backgroundColor: BackgroundColor.SEARCHING_FIELD,
-        position: "absolute",
-        top: 290,
-        left: 350
-      }}>
-        <Text>
-          {selectedPoint?.y ? selectedPoint.y.toPrecision(5) : ''}
+      <View style={isChartPressed ?
+        {
+          ...styles.labelContainer,
+          bottom: valueLabelBottomPosition,
+          right: -10
+        }
+        :
+        styles.emptyContainer
+      }>
+        <Text style={styles.labelText}>
+          {valueLabelText}
         </Text>
       </View>
     </View>
@@ -144,9 +201,3 @@ const FuncComponent = (props: IProps) => {
 }
 
 export const PairChart = React.memo(FuncComponent)
-
-//@ts-ignore
-const processColorWrapper: (color?: number | ColorValue) => ProcessedColorValue | null | undefined = (color) => {
-  //@ts-ignore
-  return processColor(color)
-}
