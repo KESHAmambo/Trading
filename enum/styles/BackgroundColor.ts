@@ -3,5 +3,6 @@ export enum BackgroundColor {
   PAIR = '#212244',
   GREEN = '#22e02d',
   RED = '#ff3180',
+  LABEL = '#363762',
   SEARCHING_FIELD = '#505193'
 }

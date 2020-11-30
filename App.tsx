@@ -1,71 +1,39 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { StatusBar, TextInput, View } from 'react-native';
-
-import { ICurrencyPair } from "./types";
-import { PairsList } from "./features/main_screen/PairsList/PairsList";
-import styles from "./styles";
+import 'react-native-gesture-handler'
+import React from 'react';
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import HomeScreen from "./features/home_screen/HomeScreen";
 import { BackgroundColor } from "./enum/styles/BackgroundColor";
+import { StatusBar } from "react-native";
+import { PairDetailsScreen } from "./features/pair_details_screen/PairDetailsScreen";
+import { Color } from "./enum/styles/Color";
+import { IRootStackParamList } from "./features/types";
 
-const myNet = require("./netconfig");
+const RootStack = createStackNavigator<IRootStackParamList>();
 
 const App = () => {
-  const [curPairs, setCurPairs] = useState<ICurrencyPair[]>([]);
-  const [inputValue, setInputValue] = useState('');
-  const [isRefreshing, setIsRefreshing] = useState(false);
-
-  const getCurPairs = () => {
-    setIsRefreshing(true);
-
-    fetch('http://' + myNet.IP + ':' + myNet.mockPort + '/currencies')
-      .then((response) => response.json())
-      .then((json) => {
-        setCurPairs(json.currencyPairs)
-      })
-      .catch((error) => console.error(error))
-      .finally(() => setIsRefreshing(false));
-  }
-
-  useEffect(() => {
-    getCurPairs();
-  }, []);
-
-  const filteredPairs = useMemo(() => {
-    if (inputValue === '') {
-      return curPairs;
-    } else {
-      return curPairs.filter((pair) => (
-        ((pair.title + pair.currency1 + pair.currency2)
-          .toUpperCase().indexOf(inputValue.toUpperCase()) !== -1)
-      ));
-    }
-  }, [inputValue, curPairs]);
-
-  const onRefresh = () => {
-    getCurPairs();
-  }
 
   return (
     <>
       <StatusBar backgroundColor={BackgroundColor.APP}/>
 
-      <View style={styles.container}>
-        <View style={styles.searchingFieldContainer}>
-          <TextInput
-            style={styles.searchingField}
-            onChangeText={setInputValue}
-            value={inputValue}
-            placeholder={'Search...'}
-            placeholderTextColor={'#ffffff'}
+      <NavigationContainer>
+        <RootStack.Navigator
+          initialRouteName={'Home'}
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: BackgroundColor.APP
+            },
+            headerTintColor: Color.WHITE,
+          }}
+        >
+          <RootStack.Screen name={'Home'} component={HomeScreen}/>
+          <RootStack.Screen
+            name={'PairDetails'}
+            component={PairDetailsScreen}
           />
-        </View>
-        <View style={styles.pairsListContainer}>
-          <PairsList
-            currencyPairs={filteredPairs}
-            isRefreshing={isRefreshing}
-            onRefresh={onRefresh}
-          />
-        </View>
-      </View>
+        </RootStack.Navigator>
+      </NavigationContainer>
     </>
   );
 };

@@ -1,7 +1,8 @@
 export enum Color {
-  PAIR_NAME = '#ffffff',
-  PAIR_FULL_NAME = '#8082c6',
-  PAIR_RATIO = '#ffffff',
-  PAIR_CHANGE = '#ffffff',
-  SEARCHING_FIELD = '#ffffff'
+  BLUE = `rgb(41, 114, 255)`,
+  BRIGHT_VIOLET = '#8082c6',
+  BRIGHT_VIOLET2 = '#6e7daf',
+  DARK_VIOLET = '#3c3d7e',
+  TRANSPARENT = 'rgba(0, 0, 0, 0)',
+  WHITE = '#ffffff'
 }
