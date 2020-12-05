@@ -7,8 +7,13 @@ export const styles = StyleSheet.create({
   chartContainer: {
     flex: 0.4,
     left: -10,
-    paddingRight: 20,
+    paddingRight: 10,
   },
+
+  chart: {
+    flex: 1
+  },
+
   labelContainer: {
     backgroundColor: BackgroundColor.LABEL,
     borderRadius: 10,
@@ -17,10 +22,20 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 10,
     position: "absolute"
   },
+
+  dateLabelContainer: {
+    bottom: -5
+  },
+
+  valueLabelContainer: {
+    right: -10
+  },
+
   labelText: {
     color: Color.WHITE,
     fontSize: 12
   },
+
   emptyContainer: {
     height: 0,
     width: DateLabel.WIDTH

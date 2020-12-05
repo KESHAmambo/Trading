@@ -3,11 +3,10 @@ import {
   GestureResponderEvent,
   LayoutChangeEvent,
   LayoutRectangle,
-  processColor,
   Text,
   View
 } from "react-native";
-import { ColorValue, ProcessedColorValue } from "react-native-charts-wrapper/node_modules/@types/react-native";
+
 import React, { useState } from "react";
 import { Axis, ChartSelectEvent, LineChart, LineValue } from "react-native-charts-wrapper";
 import { IChartData } from "./types";
@@ -15,21 +14,15 @@ import { Color } from "../../../enum/styles/Color";
 import { styles } from "./styles";
 import { DateLabel } from "../../../enum/styles/ChartLabels";
 import { IMaxMinFunction } from "../../types";
+import { DAY_DURATION_IN_MILLISECONDS, processColorWrapper } from "../../../utilites/utilites";
 
 interface IProps {
   chartData: IChartData
 }
 
-//@ts-ignore
-const processColorWrapper: (color?: number | ColorValue) => ProcessedColorValue | null | undefined = (color) => {
-  //@ts-ignore
-  return processColor(color)
-}
-
 const getDateFromDays = (days: number) => {
-  const dayDurationInMilliseconds = 1000 * 3600 * 24;
   let date = new Date();
-  date.setTime(days * dayDurationInMilliseconds);
+  date.setTime(days * DAY_DURATION_IN_MILLISECONDS);
 
   return date.toLocaleDateString();
 }
@@ -123,7 +116,7 @@ const FuncComponent = (props: IProps) => {
       onResponderRelease={handleChartRelease}
     >
       <LineChart
-        style={{flex: 1}}
+        style={styles.chart}
         onLayout={onChartLayout}
         onSelect={onPointSelect}
         chartDescription={{text: ''}}
@@ -153,9 +146,7 @@ const FuncComponent = (props: IProps) => {
           }]
         }}
         yAxis={{
-          left: {
-            enabled: false
-          },
+          left: {enabled: false},
           right: {
             ...axisProps,
             labelCount: 5,
@@ -170,27 +161,35 @@ const FuncComponent = (props: IProps) => {
           position: "BOTTOM",
         }}
       />
-      <View style={isChartPressed ?
-        {
-          ...styles.labelContainer,
-          bottom: -5,
-          left: dateLabelLeftPosition
-        }
-        :
-        styles.emptyContainer
+      {/*<View style={isChartPressed*/}
+      {/*  ? {*/}
+      {/*    ...styles.labelContainer,*/}
+      {/*    ...styles.dateLabelContainer,*/}
+      {/*    left: dateLabelLeftPosition*/}
+      {/*  }*/}
+      {/*  : styles.emptyContainer*/}
+      {/*}>*/}
+      <View style={isChartPressed
+        ? [
+          styles.labelContainer,
+          styles.dateLabelContainer,
+          {
+            left: dateLabelLeftPosition
+          }
+        ]
+        : styles.emptyContainer
       }>
         <Text style={styles.labelText}>
           {dateLabelText}
         </Text>
       </View>
-      <View style={isChartPressed ?
-        {
+      <View style={isChartPressed
+        ? {
           ...styles.labelContainer,
-          bottom: valueLabelBottomPosition,
-          right: -10
+          ...styles.valueLabelContainer,
+          bottom: valueLabelBottomPosition
         }
-        :
-        styles.emptyContainer
+        : styles.emptyContainer
       }>
         <Text style={styles.labelText}>
           {valueLabelText}

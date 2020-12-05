@@ -8,6 +8,7 @@ import { StatusBar } from "react-native";
 import { PairDetailsScreen } from "./features/pair_details_screen/PairDetailsScreen";
 import { Color } from "./enum/styles/Color";
 import { IRootStackParamList } from "./features/types";
+import { Screens } from "./enum/screens/screens";
 
 const RootStack = createStackNavigator<IRootStackParamList>();
 
@@ -19,7 +20,8 @@ const App = () => {
 
       <NavigationContainer>
         <RootStack.Navigator
-          initialRouteName={'Home'}
+          initialRouteName={Screens.HOME}
+          headerMode={"none"}
           screenOptions={{
             headerStyle: {
               backgroundColor: BackgroundColor.APP
@@ -27,9 +29,9 @@ const App = () => {
             headerTintColor: Color.WHITE,
           }}
         >
-          <RootStack.Screen name={'Home'} component={HomeScreen}/>
+          <RootStack.Screen name={Screens.HOME} component={HomeScreen}/>
           <RootStack.Screen
-            name={'PairDetails'}
+            name={Screens.PAIR_DETAILS}
             component={PairDetailsScreen}
           />
         </RootStack.Navigator>

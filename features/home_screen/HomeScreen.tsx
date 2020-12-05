@@ -7,8 +7,9 @@ import { Color } from "../../enum/styles/Color";
 import { PairsList } from "./PairsList/PairsList";
 import { StackScreenProps } from "@react-navigation/stack";
 import { IRootStackParamList } from "../types";
+import { Screens } from "../../enum/screens/screens";
 
-type IProps = StackScreenProps<IRootStackParamList, 'Home'>
+type IProps = StackScreenProps<IRootStackParamList, Screens.HOME>
 
 const HomeScreen = (props: IProps) => {
 

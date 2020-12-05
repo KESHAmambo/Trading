@@ -11,8 +11,9 @@ import { IPairName } from "./PairTitle/types";
 import { IRootStackParamList } from "../types";
 import { IChartData } from "./PairChart/types";
 import { PairChart } from "./PairChart/PairChart";
+import { Screens } from "../../enum/screens/screens";
 
-type IProps = StackScreenProps<IRootStackParamList, 'PairDetails'>
+type IProps = StackScreenProps<IRootStackParamList, Screens.PAIR_DETAILS>
 
 const selectCurrencyPairById = (state: IRootState, pairId: string): ICurrencyPair => {
   return state.pairs.pairs.filter((pair) => pair.id === pairId)[0]
@@ -33,7 +34,7 @@ const getReversedPairName = (pairName: IPairName) => {
 
 const getReversedChartData = (data: IChartData) => {
   return data.map((chartPoint) => {
-    const { y } = chartPoint;
+    const {y} = chartPoint;
 
     return ({
       ...chartPoint,
@@ -64,6 +65,8 @@ export const PairDetailsScreen = (props: IProps) => {
   const [chartData, setChartData] = useState<IChartData>([]);
   const [isChartDataRefreshing, setIsChartDataRefreshing] = useState<boolean>(false);
 
+  const currentValue = chartData.length > 0 ? chartData[chartData.length-1].y : null
+
   const fetchChartData = () => {
     setIsChartDataRefreshing(true);
     fetch(createApiURL('/chartData'))
@@ -79,7 +82,7 @@ export const PairDetailsScreen = (props: IProps) => {
       })
   }
 
-  const onButtonPress = () => {
+  const reversePair = () => {
     if (!isChartDataRefreshing) {
       setPairName(getReversedPairName(pairName));
       setChartData(getReversedChartData(chartData));
@@ -87,18 +90,24 @@ export const PairDetailsScreen = (props: IProps) => {
   };
 
   useEffect(() => {
+
+  }, []);
+
+  useEffect(() => {
     fetchChartData();
-  }, [])
+  }, []);
 
   return (
     <View style={styles.mainContainer}>
       <PairTitle
         pairName={pairName}
-        onButtonPress={onButtonPress}
+        currentValue={currentValue}
+        onButtonPress={reversePair}
       />
       <PairChart
         chartData={chartData}
       />
+
     </View>
   )
 }
