@@ -161,14 +161,6 @@ const FuncComponent = (props: IProps) => {
           position: "BOTTOM",
         }}
       />
-      {/*<View style={isChartPressed*/}
-      {/*  ? {*/}
-      {/*    ...styles.labelContainer,*/}
-      {/*    ...styles.dateLabelContainer,*/}
-      {/*    left: dateLabelLeftPosition*/}
-      {/*  }*/}
-      {/*  : styles.emptyContainer*/}
-      {/*}>*/}
       <View style={isChartPressed
         ? [
           styles.labelContainer,
@@ -184,11 +176,13 @@ const FuncComponent = (props: IProps) => {
         </Text>
       </View>
       <View style={isChartPressed
-        ? {
-          ...styles.labelContainer,
-          ...styles.valueLabelContainer,
-          bottom: valueLabelBottomPosition
-        }
+        ? [
+          styles.labelContainer,
+          styles.valueLabelContainer,
+          {
+            bottom: valueLabelBottomPosition
+          }
+        ]
         : styles.emptyContainer
       }>
         <Text style={styles.labelText}>

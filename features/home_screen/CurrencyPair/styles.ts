@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     flexDirection: FlexDirection.ROW,
     marginVertical: 5,
     marginHorizontal: 10,
-    backgroundColor: BackgroundColor.PAIR,
+    backgroundColor: BackgroundColor.CONTAINER,
     borderRadius: 12,
     padding: 10,
     justifyContent: JustifyContent.SPACE_BETWEEN,

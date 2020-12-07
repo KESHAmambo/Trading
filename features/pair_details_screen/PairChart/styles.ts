@@ -5,7 +5,7 @@ import { DateLabel } from "../../../enum/styles/ChartLabels";
 
 export const styles = StyleSheet.create({
   chartContainer: {
-    flex: 0.4,
+    flex: 0.8,
     left: -10,
     paddingRight: 10,
   },

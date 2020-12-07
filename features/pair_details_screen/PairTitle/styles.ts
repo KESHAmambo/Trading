@@ -4,17 +4,15 @@ import { JustifyContent } from "../../../enum/styles/JustifyContent";
 import { Color } from "../../../enum/styles/Color";
 import { BorderColor } from "../../../enum/styles/BorderColor";
 import { AlignItems } from "../../../enum/styles/AlignItems";
-import { BackgroundColor } from "../../../enum/styles/BackgroundColor";
 
 export const styles = StyleSheet.create({
   titleContainer: {
-    flex: 0.1,
+    flex: 0.2,
     flexDirection: FlexDirection.ROW,
     marginVertical: 5,
     marginHorizontal: 10,
     padding: 10,
     justifyContent: JustifyContent.SPACE_BETWEEN,
-    //backgroundColor: BackgroundColor.PAIR,
     borderRadius: 16
   },
 
@@ -61,7 +59,8 @@ export const styles = StyleSheet.create({
   reverseButtonTouchable: {
     flex: 0.2,
     paddingVertical: 10,
-    backgroundColor: BackgroundColor.PAIR,
+    borderWidth: 3,
+    borderColor: BorderColor.ICON,
     borderRadius: 25
   },
 

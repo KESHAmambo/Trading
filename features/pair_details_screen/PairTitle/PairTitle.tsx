@@ -1,11 +1,10 @@
 import React from "react";
 import { Text, TouchableHighlight, View } from "react-native";
-import { IPairName } from "./types";
 import { styles } from "./styles";
 import { staticSourcesPath } from "../../../netconfig";
 import { SvgUri } from "react-native-svg";
 import { BackgroundColor } from "../../../enum/styles/BackgroundColor";
-
+import { IPairName } from "../types";
 
 interface IProps {
   pairName: IPairName,

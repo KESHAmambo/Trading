@@ -6,7 +6,6 @@ import HomeScreen from "./features/home_screen/HomeScreen";
 import { BackgroundColor } from "./enum/styles/BackgroundColor";
 import { StatusBar } from "react-native";
 import { PairDetailsScreen } from "./features/pair_details_screen/PairDetailsScreen";
-import { Color } from "./enum/styles/Color";
 import { IRootStackParamList } from "./features/types";
 import { Screens } from "./enum/screens/screens";
 
@@ -16,20 +15,17 @@ const App = () => {
 
   return (
     <>
-      <StatusBar backgroundColor={BackgroundColor.APP}/>
+      <StatusBar backgroundColor={BackgroundColor.CONTAINER}/>
 
       <NavigationContainer>
         <RootStack.Navigator
           initialRouteName={Screens.HOME}
           headerMode={"none"}
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: BackgroundColor.APP
-            },
-            headerTintColor: Color.WHITE,
-          }}
         >
-          <RootStack.Screen name={Screens.HOME} component={HomeScreen}/>
+          <RootStack.Screen
+            name={Screens.HOME}
+            component={HomeScreen}
+          />
           <RootStack.Screen
             name={Screens.PAIR_DETAILS}
             component={PairDetailsScreen}

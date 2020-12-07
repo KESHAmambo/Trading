@@ -95,8 +95,8 @@ const FuncComponent = (props: IProps) => {
             withHorizontalLabels={false}
             transparent={true}
             chartConfig={{
-              backgroundGradientFrom: BackgroundColor.PAIR,
-              backgroundGradientTo: BackgroundColor.PAIR,
+              backgroundGradientFrom: BackgroundColor.CONTAINER,
+              backgroundGradientTo: BackgroundColor.CONTAINER,
               color: chartColor,
             }}
             bezier={true}

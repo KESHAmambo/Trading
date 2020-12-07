@@ -7,11 +7,12 @@ import { createApiURL } from "../../netconfig"
 import { IRootState } from "../../store/types";
 import { useSelector } from "react-redux";
 import { ICurrencyPair } from "../home_screen/CurrencyPair/types";
-import { IPairName } from "./PairTitle/types";
 import { IRootStackParamList } from "../types";
 import { IChartData } from "./PairChart/types";
 import { PairChart } from "./PairChart/PairChart";
 import { Screens } from "../../enum/screens/screens";
+import { ExchangeWidget } from "./ExchangeWidget/ExchangeWidget";
+import { IPairName } from "./types";
 
 type IProps = StackScreenProps<IRootStackParamList, Screens.PAIR_DETAILS>
 
@@ -90,24 +91,26 @@ export const PairDetailsScreen = (props: IProps) => {
   };
 
   useEffect(() => {
-
-  }, []);
-
-  useEffect(() => {
     fetchChartData();
   }, []);
 
   return (
     <View style={styles.mainContainer}>
-      <PairTitle
+      <View style={styles.titleAndChartContainer}>
+        <PairTitle
+          pairName={pairName}
+          currentValue={currentValue}
+          onButtonPress={reversePair}
+        />
+        <PairChart
+          chartData={chartData}
+        />
+      </View>
+
+      <ExchangeWidget
         pairName={pairName}
         currentValue={currentValue}
-        onButtonPress={reversePair}
       />
-      <PairChart
-        chartData={chartData}
-      />
-
     </View>
   )
 }

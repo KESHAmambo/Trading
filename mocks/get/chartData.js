@@ -5,7 +5,7 @@ const DAY_DURATION_IN_MILLISECONDS = 1000 * 3600 * 24;
 
 //params for chart data
 const VALUABLE_DIGITS = 5;  //количество значащих цифр, обязательно больше 0
-const MAX_CHANGE_IN_PERCENT = 20;
+const MAX_CHANGE_IN_PERCENT = 10;
 const MAX_POWER = 4;
 
 const getRandomChartData = (nDays) => {
@@ -17,10 +17,9 @@ const getRandomChartData = (nDays) => {
   const chartValues = [];
 
   for (let i = 0; i < nDays; i++) {
-    const changeInPercent = faker.random.number(MAX_CHANGE_IN_PERCENT * 100) / 100;
-    const power = Math.pow(10, faker.random.number(2) - 2);
+    const changeInPercent = faker.random.number(9999) / 100 * (MAX_CHANGE_IN_PERCENT / 100);
 
-    let change = changeInPercent / 100 * power;
+    let change = changeInPercent / 100;
     change = (faker.random.number(1) === 1) ? change : (-1) * change;
 
     let diff = change * value;
@@ -28,6 +27,7 @@ const getRandomChartData = (nDays) => {
       diff *= -1;
     }
     value += diff;
+
     chartValues.push(value);
   }
 

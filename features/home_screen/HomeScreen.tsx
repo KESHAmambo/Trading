@@ -35,14 +35,16 @@ const HomeScreen = (props: IProps) => {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.searchingFieldContainer}>
-        <TextInput
-          style={styles.searchingField}
-          onChangeText={setInputValue}
-          value={inputValue}
-          placeholder={'Search...'}
-          placeholderTextColor={Color.WHITE}
-        />
+      <View style={styles.searchingFieldContainerWrapper}>
+        <View style={styles.searchingFieldContainer}>
+          <TextInput
+            style={styles.searchingField}
+            onChangeText={setInputValue}
+            value={inputValue}
+            placeholder={'Search...'}
+            placeholderTextColor={Color.BRIGHT_VIOLET}
+          />
+        </View>
       </View>
       <View style={styles.pairsListContainer}>
         <PairsList
