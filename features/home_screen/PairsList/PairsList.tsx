@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import { FlatList, ListRenderItem } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-
 import { CurrencyPair } from "../CurrencyPair/CurrencyPair";
 import { ICurrencyPair } from "../CurrencyPair/types";
-import { fetchCurrencyPairs } from "../../../store/features/pairsList";
 import { isCurrencyPairsListRefreshingSelector } from "../../../store/features/pairsList/selectors";
+import { fetchCurrencyPairs } from "../../../store/features/pairsList/thunks";
 
 interface IProps {
   currencyPairs: ICurrencyPair[]

@@ -1,6 +1,7 @@
-import { IPairsState } from "./features/pairsList/types";
+import { IPairsState, ISupportState } from "./features/pairsList/types";
 
 export interface IRootState {
-  pairs: IPairsState
+  pairs: IPairsState,
+  support: ISupportState
 }
 

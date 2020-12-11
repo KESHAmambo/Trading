@@ -4,3 +4,8 @@ export interface IPairsState {
   pairs: Array<ICurrencyPair>,
   isRefreshing: boolean
 }
+
+export interface ISupportState {
+  email: string,
+  isRefreshing: boolean
+}
