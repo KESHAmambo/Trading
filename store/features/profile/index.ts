@@ -15,7 +15,8 @@ const slice = createSlice<IProfileState, SliceCaseReducers<IProfileState>>({
           lastName: 'Unknown'
         },
         dateOfBirth: '---'
-      }
+      },
+      wallets: []
     },
     isRefreshing: false
   },
