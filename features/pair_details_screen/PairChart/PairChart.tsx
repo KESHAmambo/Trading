@@ -109,7 +109,7 @@ const FuncComponent = (props: IProps) => {
 
   return (
     <View
-      style={styles.chartContainer}
+      style={styles.mainContainer}
       onStartShouldSetResponder={onStartShouldSetResponder}
       onMoveShouldSetResponder={onMoveShouldSetResponder}
       onResponderMove={handleChartTouch}
@@ -157,6 +157,8 @@ const FuncComponent = (props: IProps) => {
           timeUnit: "DAYS",
           valueFormatter: "date",
           valueFormatterPattern: "YYYY-MM-dd",
+          avoidFirstLastClipping: true,
+          labelCountForce: true,
           labelCount: 4,
           position: "BOTTOM",
         }}

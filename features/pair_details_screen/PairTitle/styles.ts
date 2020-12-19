@@ -6,13 +6,13 @@ import { BorderColor } from "../../../enum/styles/BorderColor";
 import { AlignItems } from "../../../enum/styles/AlignItems";
 
 export const styles = StyleSheet.create({
-  titleContainer: {
-    flex: 0.2,
+  mainContainer: {
+    flex: 1,
     flexDirection: FlexDirection.ROW,
+    justifyContent: JustifyContent.SPACE_BETWEEN,
     marginVertical: 5,
     marginHorizontal: 10,
     padding: 10,
-    justifyContent: JustifyContent.SPACE_BETWEEN,
     borderRadius: 16
   },
 
@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
     flex: 0.6,
     flexDirection: FlexDirection.COLUMN,
     justifyContent: JustifyContent.SPACE_EVENLY,
-    alignItems: AlignItems.CENTER
+    alignItems: AlignItems.CENTER,
   },
 
   pairName: {

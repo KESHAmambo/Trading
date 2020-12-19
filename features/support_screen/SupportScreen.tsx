@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { Alert, Linking, ScrollView, Text, TextInput, View } from "react-native";
 import { styles } from "./styles";
 import { Picker } from "@react-native-picker/picker";
@@ -81,54 +81,57 @@ const SupportScreen = () => {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.mainContainer}>
-      <View style={styles.fieldsAndButtonContainer}>
-        <View style={styles.fieldDescriptionContainer}>
-          <Text style={styles.fieldDescription}>
-            {'Section with issue'}
-          </Text>
-        </View>
+    <View style={styles.scrollViewWrapper}>
+      <ScrollView contentContainerStyle={styles.mainContainer}>
+        <View style={styles.fieldsAndButtonContainer}>
+          <View style={styles.fieldDescriptionContainer}>
+            <Text style={styles.fieldDescription}>
+              {'Section with issue'}
+            </Text>
+          </View>
 
-        <View style={styles.pickerContainer}>
-          <Picker
-            style={styles.picker}
-            selectedValue={pickerValue}
-            onValueChange={onPickerValueChange}
-            mode={"dropdown"}
-            dropdownIconColor={Color.WHITE}
-          >
-            {addPickerItems(SCREENS)}
-          </Picker>
-        </View>
+          <View style={styles.pickerContainer}>
+            <Picker
+              style={styles.picker}
+              selectedValue={pickerValue}
+              onValueChange={onPickerValueChange}
+              mode={"dropdown"}
+              dropdownIconColor={Color.WHITE}
+            >
+              {addPickerItems(SCREENS)}
+            </Picker>
+          </View>
 
-        <View style={styles.fieldDescriptionContainer}>
-          <Text style={styles.fieldDescription}>
-            {'Issue description'}
-          </Text>
-        </View>
+          <View style={styles.fieldDescriptionContainer}>
+            <Text style={styles.fieldDescription}>
+              {'Issue description'}
+            </Text>
+          </View>
 
-        <View style={styles.issueInputContainer}>
-          <TextInput
-            style={styles.issueInput}
-            multiline={true}
-            maxLength={1023}
-            numberOfLines={7}
-            textAlignVertical={"top"}
-            value={inputValue}
-            onChangeText={onChangeText}
-          />
-        </View>
+          <View style={styles.issueInputContainer}>
+            <TextInput
+              style={styles.issueInput}
+              multiline={true}
+              maxLength={1023}
+              numberOfLines={7}
+              textAlignVertical={"top"}
+              value={inputValue}
+              onChangeText={onChangeText}
+            />
+          </View>
 
-        <View style={styles.sendButtonContainer}>
-          <GradientButton
-            isProcessing={isSending}
-            isDisabled={isSendButtonDisabled}
-            onPress={onSendButtonPress}
-            text={'SEND'}
-          />
+          <View style={styles.sendButtonContainer}>
+            <GradientButton
+              isProcessing={isSending}
+              isDisabled={isSendButtonDisabled}
+              onPress={onSendButtonPress}
+              text={'SEND'}
+            />
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
+
   )
 }
 

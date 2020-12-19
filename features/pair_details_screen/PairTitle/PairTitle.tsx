@@ -25,7 +25,7 @@ const FuncComponent = (props: IProps) => {
   const reverseButton = staticSourcesPath + '/icons/buttons/exchange.svg';
 
   return (
-    <View style={styles.titleContainer}>
+    <View style={styles.mainContainer}>
       <View style={styles.pairIconsContainer}>
         <SvgUri
           uri={currencyIcon1}

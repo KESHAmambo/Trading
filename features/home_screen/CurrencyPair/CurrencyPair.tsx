@@ -77,7 +77,7 @@ const FuncComponent = (props: IProps) => {
           </Text>
         </View>
 
-        <View style={styles.chartContainer}>
+        <View style={styles.mainContainer}>
           <LineChart
             style={styles.chart}
             data={{

@@ -66,7 +66,7 @@ export const PairDetailsScreen = (props: IProps) => {
   const [chartData, setChartData] = useState<IChartData>([]);
   const [isChartDataRefreshing, setIsChartDataRefreshing] = useState<boolean>(false);
 
-  const currentValue = chartData.length > 0 ? chartData[chartData.length-1].y : null
+  const currentValue = chartData.length > 0 ? chartData[chartData.length - 1].y : null
 
   const fetchChartData = () => {
     setIsChartDataRefreshing(true);
@@ -95,25 +95,31 @@ export const PairDetailsScreen = (props: IProps) => {
   }, []);
 
   return (
-    <View style={{flex: 1}}>
+    <View style={styles.scrollViewWrapper}>
       <ScrollView contentContainerStyle={styles.mainContainer}>
         <View style={styles.titleAndChartContainer}>
-          <PairTitle
-            pairName={pairName}
-            currentValue={currentValue}
-            onButtonPress={reversePair}
-          />
-          <PairChart
-            chartData={chartData}
-          />
+          <View style={styles.titleContainer}>
+            <PairTitle
+              pairName={pairName}
+              currentValue={currentValue}
+              onButtonPress={reversePair}
+            />
+          </View>
+
+          <View style={styles.chartContainer}>
+            <PairChart
+              chartData={chartData}
+            />
+          </View>
         </View>
 
-        <ExchangeWidget
-          pairName={pairName}
-          currentValue={currentValue}
-        />
+        <View style={styles.exchangeWidgetContainer}>
+          <ExchangeWidget
+            pairName={pairName}
+            currentValue={currentValue}
+          />
+        </View>
       </ScrollView>
     </View>
-
   )
 }

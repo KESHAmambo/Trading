@@ -62,7 +62,7 @@ export const styles = StyleSheet.create({
     fontSize: 14
   },
 
-  chartContainer: {
+  mainContainer: {
     flex: 0.17,
   },
 

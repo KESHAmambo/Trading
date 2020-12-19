@@ -1,7 +1,8 @@
 import { createSlice, SliceCaseReducers } from "@reduxjs/toolkit";
-import { ISupportState } from "../pairsList/types";
 import { SUPPORT_PREFIX } from "../../constants";
 import { fetchSupportEmail } from "./thunks";
+import { ISupportState } from "./types";
+import { addAsyncThunkRefreshingReducers } from "../../../utilites/utilites";
 
 const slice = createSlice<ISupportState, SliceCaseReducers<ISupportState>>({
   name: SUPPORT_PREFIX,
@@ -11,27 +12,13 @@ const slice = createSlice<ISupportState, SliceCaseReducers<ISupportState>>({
   },
   reducers: {},
   extraReducers: (builder) => {
-    builder
-      .addCase(
-        fetchSupportEmail.pending,
-        state => {
-          state.isRefreshing = true;
-        }
-      )
-      .addCase(
-        fetchSupportEmail.fulfilled,
-        (state, action) => {
-          state.email = action.payload;
-          state.isRefreshing = false;
-        }
-      )
-      .addCase(
-        fetchSupportEmail.rejected,
-        (state, action) => {
-          console.log('fetch rejected: ' + action);
-          state.isRefreshing = false;
-        }
-      )
+    addAsyncThunkRefreshingReducers<ISupportState>(
+      builder,
+      fetchSupportEmail,
+      (state, action) => {
+        state.email = action.payload;
+      }
+    )
   }
 })
 
