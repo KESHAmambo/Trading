@@ -1,10 +1,12 @@
 import React from "react";
-import { Dimensions, Image, Pressable, Text, View } from "react-native";
+import { Dimensions, Pressable, Text, View } from "react-native";
 import { styles } from "./styles";
 import { ICurrencyPair } from "./types";
 import LineChart from "react-native-chart-kit/dist/line-chart";
 import { BackgroundColor } from "../../../enum/styles/BackgroundColor";
 import { useNavigation } from '@react-navigation/native'
+import { SvgUri } from "react-native-svg";
+import { Screens } from "../../../enum/screens/screens";
 
 interface IProps {
   pair: ICurrencyPair
@@ -12,6 +14,8 @@ interface IProps {
 
 const onCurrencyPairLongPress = () => {
 };
+
+const chartColor = (opacity = 1) => `rgba(0, 255, 255, ${opacity})`;
 
 const FuncComponent = (props: IProps) => {
   const {
@@ -35,7 +39,7 @@ const FuncComponent = (props: IProps) => {
   const navigation = useNavigation();
 
   const onCurrencyPairPress = () => {
-    navigation.navigate('PairDetails', {
+    navigation.navigate(Screens.PAIR_DETAILS, {
       pairId: id
     })
   }
@@ -47,16 +51,15 @@ const FuncComponent = (props: IProps) => {
     >
       <View style={styles.pairContainer}>
         <View style={styles.iconsContainer}>
-          <Image
-            source={{uri: icon1}}
+          <SvgUri
+            uri={icon1}
             style={[
               styles.icon,
               styles.iconPosition1
             ]}
           />
-
-          <Image
-            source={{uri: icon2}}
+          <SvgUri
+            uri={icon2}
             style={[
               styles.icon,
               styles.iconPosition2
@@ -64,7 +67,7 @@ const FuncComponent = (props: IProps) => {
           />
         </View>
 
-        <View style={styles.pairNameContainer}>
+        <View style={styles.pairNameAndValueContainer}>
           <Text style={styles.pairName}>
             {currencyCode1 + ' \u21C4 ' + currencyCode2}
           </Text>
@@ -76,6 +79,7 @@ const FuncComponent = (props: IProps) => {
 
         <View style={styles.chartContainer}>
           <LineChart
+            style={styles.chart}
             data={{
               labels: [],
               datasets: [{
@@ -91,16 +95,11 @@ const FuncComponent = (props: IProps) => {
             withHorizontalLabels={false}
             transparent={true}
             chartConfig={{
-              backgroundGradientFrom: BackgroundColor.PAIR,
-              backgroundGradientTo: BackgroundColor.PAIR,
-              color: (opacity = 1) => `rgba(0, 255, 255, ${opacity})`,
+              backgroundGradientFrom: BackgroundColor.CONTAINER,
+              backgroundGradientTo: BackgroundColor.CONTAINER,
+              color: chartColor,
             }}
-            bezier
-            style={{
-              position: "absolute",
-              top: -40,
-              left: -65
-            }}
+            bezier={true}
           />
         </View>
 

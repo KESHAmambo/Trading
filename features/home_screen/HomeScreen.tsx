@@ -7,8 +7,9 @@ import { Color } from "../../enum/styles/Color";
 import { PairsList } from "./PairsList/PairsList";
 import { StackScreenProps } from "@react-navigation/stack";
 import { IRootStackParamList } from "../types";
+import { Screens } from "../../enum/screens/screens";
 
-type IProps = StackScreenProps<IRootStackParamList, 'Home'>
+type IProps = StackScreenProps<IRootStackParamList, Screens.HOME>
 
 const HomeScreen = (props: IProps) => {
 
@@ -34,14 +35,16 @@ const HomeScreen = (props: IProps) => {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.searchingFieldContainer}>
-        <TextInput
-          style={styles.searchingField}
-          onChangeText={setInputValue}
-          value={inputValue}
-          placeholder={'Search...'}
-          placeholderTextColor={Color.WHITE}
-        />
+      <View style={styles.searchingFieldContainerWrapper}>
+        <View style={styles.searchingFieldContainer}>
+          <TextInput
+            style={styles.searchingField}
+            onChangeText={setInputValue}
+            value={inputValue}
+            placeholder={'Search...'}
+            placeholderTextColor={Color.BRIGHT_VIOLET}
+          />
+        </View>
       </View>
       <View style={styles.pairsListContainer}>
         <PairsList

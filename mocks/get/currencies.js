@@ -20,8 +20,8 @@ const respond = () => {
     otherCurrencies.forEach((cur2) => {
       curPair = {
         id: faker.random.uuid(),
-        icon1: netConfig.staticSourcesPath + '/icons/currencies/' + cur1.code.toLowerCase() + '.png',
-        icon2: netConfig.staticSourcesPath + '/icons/currencies/' + cur2.code.toLowerCase() + '.png',
+        icon1: netConfig.staticSourcesPath + '/icons/currencies/' + cur1.code.toLowerCase() + '.svg',
+        icon2: netConfig.staticSourcesPath + '/icons/currencies/' + cur2.code.toLowerCase() + '.svg',
         currencyCode1: cur1.code,
         currencyCode2: cur2.code,
         currencyName1: cur1.name,

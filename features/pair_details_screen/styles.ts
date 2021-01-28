@@ -11,4 +11,12 @@ export const styles = StyleSheet.create({
     alignItems: AlignItems.STRETCH,
   },
 
+  titleAndChartContainer: {
+    flex: 0.5,
+    paddingBottom: 15,
+    marginBottom: 10,
+    backgroundColor: BackgroundColor.CONTAINER,
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25
+  }
 });

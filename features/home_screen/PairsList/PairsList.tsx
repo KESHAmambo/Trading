@@ -33,7 +33,7 @@ const FuncComponent = (props: IProps) => {
 
   useEffect(() => {
     dispatch(fetchCurrencyPairs())
-  }, [])    //deps from guide: [isRefreshing, dispatch]
+  }, [])
 
   const onRefresh = () => {
     if (!isRefreshing) {

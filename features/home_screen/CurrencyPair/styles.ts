@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     flexDirection: FlexDirection.ROW,
     marginVertical: 5,
     marginHorizontal: 10,
-    backgroundColor: BackgroundColor.PAIR,
+    backgroundColor: BackgroundColor.CONTAINER,
     borderRadius: 12,
     padding: 10,
     justifyContent: JustifyContent.SPACE_BETWEEN,
@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
     left: 16
   },
 
-  pairNameContainer: {
+  pairNameAndValueContainer: {
     flex: 0.45,
     flexDirection: FlexDirection.COLUMN,
     paddingLeft: 10,
@@ -64,6 +64,12 @@ export const styles = StyleSheet.create({
 
   chartContainer: {
     flex: 0.17,
+  },
+
+  chart: {
+    position: "absolute",
+    top: -40,
+    left: -65
   },
 
   pairChangeAndRatioContainer: {

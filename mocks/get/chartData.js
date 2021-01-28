@@ -1,45 +1,48 @@
 const faker = require('faker')
 
-const nDays = 31;
+const N_DAYS = 31;
+const DAY_DURATION_IN_MILLISECONDS = 1000 * 3600 * 24;
+
+//params for chart data
+const VALUABLE_DIGITS = 5;  //количество значащих цифр, обязательно больше 0
+const MAX_CHANGE_IN_PERCENT = 10;
+const MAX_POWER = 4;
 
 const getRandomChartData = (nDays) => {
+
+  const maxInitialValue = Math.pow(10, VALUABLE_DIGITS) - 1;
+  const minInitialValue = Math.pow(10, VALUABLE_DIGITS - 1);
+  let value = faker.random.number(maxInitialValue - minInitialValue) + minInitialValue;
+
   const chartValues = [];
-  const power = Math.pow(10, faker.random.number(5) - 3)
-  let initValue = faker.random.number(100) + 1;
-  let diff = 0;
 
   for (let i = 0; i < nDays; i++) {
-    diff = faker.random.number(10) - 5;
-    if (initValue + diff <= 0) {
+    const changeInPercent = faker.random.number(9999) / 100 * (MAX_CHANGE_IN_PERCENT / 100);
+
+    let change = changeInPercent / 100;
+    change = (faker.random.number(1) === 1) ? change : (-1) * change;
+
+    let diff = change * value;
+    if (value + diff <= 0) {
       diff *= -1;
     }
-    initValue += diff;
-    chartValues.push(initValue * power)
+    value += diff;
+
+    chartValues.push(value);
   }
 
-  return chartValues;
+  const randomPower = Math.pow(10, faker.random.number(2 * MAX_POWER) - MAX_POWER);
+
+  return chartValues.map((value) => (value / Math.pow(10, VALUABLE_DIGITS - 1) * randomPower));
 }
 
 //return Array of last nDays in milliseconds since 1970
-// const getChartLabelsForLastNDays = (nDays) => {
-//   const currentDate = Date.now();
-//   const dayDuration = 1000 * 3600 * 24;
-//   const dates = [];
-//
-//   for (let i = nDays; i > 0; i -= 1) {
-//     dates.push(currentDate - (i * dayDuration));
-//   }
-//
-//   return dates;
-// }
-
 const getChartLabelsForLastNDays = (nDays) => {
   const currentDate = Date.now();
-  const dayDuration = 1000 * 3600 * 24;
   const dates = [];
 
   for (let i = nDays - 1; i >= 0; i -= 1) {
-    dates.push(currentDate / dayDuration - i);
+    dates.push(currentDate / DAY_DURATION_IN_MILLISECONDS - i);
   }
 
   return dates;
@@ -47,12 +50,12 @@ const getChartLabelsForLastNDays = (nDays) => {
 
 const respond = () => {
 
-  const chartValues = getRandomChartData(nDays);
-  const chartLabels = getChartLabelsForLastNDays(nDays);
+  const chartValues = getRandomChartData(N_DAYS);
+  const chartLabels = getChartLabelsForLastNDays(N_DAYS);
 
   const chartData = [];
 
-  for (let i = 0; i< nDays; i++) {
+  for (let i = 0; i < N_DAYS; i++) {
     chartData.push({
       x: chartLabels[i],
       y: chartValues[i]

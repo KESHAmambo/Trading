@@ -9,15 +9,20 @@ export const styles = StyleSheet.create({
     backgroundColor: BackgroundColor.APP,
     alignItems: AlignItems.STRETCH
   },
+  searchingFieldContainerWrapper: {
+    height: 70,
+    marginBottom: 5,
+    backgroundColor: BackgroundColor.CONTAINER,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20
+  },
   searchingFieldContainer: {
-    height: 45,
     marginTop: 10,
     marginBottom: 5,
     marginHorizontal: 10,
     paddingHorizontal: 5,
-
     borderRadius: 12,
-    backgroundColor: BackgroundColor.SEARCHING_FIELD,
+    backgroundColor: BackgroundColor.INPUT_FIELD,
   },
   searchingField: {
     color: Color.WHITE,

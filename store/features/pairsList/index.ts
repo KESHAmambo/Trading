@@ -3,10 +3,10 @@ import { IPairsState } from "./types";
 import { createApiURL } from "../../../netconfig";
 import { ICurrencyPair } from "../../../features/home_screen/CurrencyPair/types";
 
-export const pairsPrefix = 'pairs';
+export const PAIRS_PREFIX = 'pairs';
 
 export const fetchCurrencyPairs = createAsyncThunk(
-  pairsPrefix + '/fetchCurrencyPairs',
+  PAIRS_PREFIX + '/fetchCurrencyPairs',
   () => {
     return fetch(createApiURL('/currencies'))
       .then((response) => (response.json()))
@@ -14,7 +14,7 @@ export const fetchCurrencyPairs = createAsyncThunk(
   });
 
 const slice = createSlice<IPairsState, SliceCaseReducers<IPairsState>>({
-  name: pairsPrefix,
+  name: PAIRS_PREFIX,
   initialState: {
     pairs: [],
     isRefreshing: false
