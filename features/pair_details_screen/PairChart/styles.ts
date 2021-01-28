@@ -4,10 +4,9 @@ import { Color } from "../../../enum/styles/Color";
 import { DateLabel } from "../../../enum/styles/ChartLabels";
 
 export const styles = StyleSheet.create({
-  chartContainer: {
-    flex: 0.8,
-    left: -10,
-    paddingRight: 10,
+  mainContainer: {
+    flex: 1,
+    left: -10
   },
 
   chart: {

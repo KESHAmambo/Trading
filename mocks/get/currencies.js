@@ -37,7 +37,7 @@ const respond = () => {
         ],
         ratio: (faker.random.number(10000) / (faker.random.number(10000) + 1)).toPrecision(4),
         change: (faker.random.number(100) / (faker.random.number(100) + 1)).toPrecision(2),
-        sign: (faker.random.number(1) === 1) ? '+' : '-'
+        sign: faker.random.boolean() ? '+' : '-'
       };
       currencyPairs.push(curPair);
     });

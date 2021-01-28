@@ -4,8 +4,8 @@ import { Color } from "../../../enum/styles/Color";
 import { TextAlign } from "../../../enum/styles/TextAlign";
 
 export const styles = StyleSheet.create({
-  exchangeContainer: {
-    flex: 0.5,
+  mainContainer: {
+    flex: 1,
     marginTop: 10,
     marginBottom: 20,
     marginHorizontal: 5,

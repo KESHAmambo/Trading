@@ -69,7 +69,7 @@ const FuncComponent = (props: IProps) => {
   }
 
   return (
-    <View style={styles.exchangeContainer}>
+    <View style={styles.mainContainer}>
       <View style={styles.inputFieldContainer}>
         <TextInput
           style={styles.inputField}

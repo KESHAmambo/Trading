@@ -6,8 +6,12 @@ import { AlignItems } from "../../enum/styles/AlignItems";
 import { Color } from "../../enum/styles/Color";
 
 export const styles = StyleSheet.create({
-  mainContainer: {
+  scrollViewWrapper: {
     flex: 1,
+    backgroundColor:BackgroundColor.APP
+  },
+
+  mainContainer: {
     backgroundColor: BackgroundColor.APP,
     flexDirection: FlexDirection.COLUMN,
     justifyContent: JustifyContent.FLEX_START,

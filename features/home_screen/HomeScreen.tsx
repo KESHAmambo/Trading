@@ -10,6 +10,7 @@ import { IRootStackParamList } from "../types";
 import { Screens } from "../../enum/screens/screens";
 import { Toolbar } from "./Toolbar/Toolbar";
 import { fetchSupportEmail } from "../../store/features/support/thunks";
+import { fetchProfile } from "../../store/features/profile/thunks";
 
 type IProps = StackScreenProps<IRootStackParamList, Screens.HOME>
 
@@ -25,8 +26,12 @@ const HomeScreen = (props: IProps) => {
   const [inputValue, setInputValue] = useState<string>('');
 
   useEffect(() => {
-    dispatch(fetchSupportEmail())
-  }, [])
+    dispatch(fetchSupportEmail());
+  }, []);
+
+  useEffect(() => {
+    dispatch(fetchProfile());
+  }, []);
 
   const curPairs = useSelector(currencyPairsListSelector);
 
