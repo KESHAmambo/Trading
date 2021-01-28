@@ -8,3 +8,7 @@ export const processColorWrapper: (color?: number | ColorValue) => ProcessedColo
   //@ts-ignore
   return processColor(color)
 }
+
+export const createMailUrl = (email = '', subject = '', body = '') => {
+  return `mailto:${email}?subject=${subject}&body=${body}`
+}

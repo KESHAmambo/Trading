@@ -1,9 +1,9 @@
-import { ActivityIndicator, Pressable, Text, TextInput, View } from "react-native";
+import { TextInput, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { styles } from "./styles";
 import { Color } from "../../../enum/styles/Color";
 import { IPairName } from "../types";
-import LinearGradient from 'react-native-linear-gradient'
+import { GradientButton } from "../../GradientButton/GradientButton";
 
 interface IProps {
   pairName: IPairName,
@@ -105,32 +105,14 @@ const FuncComponent = (props: IProps) => {
         />
       </View>
 
-      {isExchangeProcessing
-        ?
-        <View style={[styles.exchangeButtonContainer, styles.activityIndicatorContainer]}>
-          <ActivityIndicator
-            size={"large"}
-            color={Color.BLUE}/>
-        </View>
-        :
-        <LinearGradient
-          style={styles.exchangeButtonContainer}
-          colors={[Color.GRADIENT_PURPLE, Color.GRADIENT_BLUE, Color.GRADIENT_LIGHT_BLUE]}
-          start={{ x: 0.2, y: 1 }}
-          end={{ x: 0.8, y: 0 }}
-        >
-          <Pressable
-            style={styles.exchangeButtonDimensions}
-            onPress={onExchangeButtonPress}
-            disabled={isOneOfInputsEmpty}
-            android_ripple={{color: ''}}
-          >
-            <Text style={styles.buttonText}>
-              {'EXCHANGE'}
-            </Text>
-          </Pressable>
-        </LinearGradient>
-      }
+      <View style={styles.exchangeButtonContainer}>
+        <GradientButton
+          isProcessing={isExchangeProcessing}
+          isDisabled={isOneOfInputsEmpty}
+          onPress={onExchangeButtonPress}
+          text={'EXCHANGE'}
+        />
+      </View>
     </View>
   );
 }

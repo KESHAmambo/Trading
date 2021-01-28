@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { currencyPairsListSelector } from "../../store/features/pairsList/selectors";
 import { TextInput, View } from "react-native";
 import { styles } from "./styles";
@@ -8,6 +8,8 @@ import { PairsList } from "./PairsList/PairsList";
 import { StackScreenProps } from "@react-navigation/stack";
 import { IRootStackParamList } from "../types";
 import { Screens } from "../../enum/screens/screens";
+import { Toolbar } from "./Toolbar/Toolbar";
+import { fetchSupportEmail } from "../../store/features/support/thunks";
 
 type IProps = StackScreenProps<IRootStackParamList, Screens.HOME>
 
@@ -18,7 +20,13 @@ const HomeScreen = (props: IProps) => {
     // navigation
   } = props;
 
+  const dispatch = useDispatch();
+
   const [inputValue, setInputValue] = useState<string>('');
+
+  useEffect(() => {
+    dispatch(fetchSupportEmail())
+  }, [])
 
   const curPairs = useSelector(currencyPairsListSelector);
 
@@ -46,11 +54,14 @@ const HomeScreen = (props: IProps) => {
           />
         </View>
       </View>
+
       <View style={styles.pairsListContainer}>
         <PairsList
           currencyPairs={filteredBySearchPairs}
         />
       </View>
+
+      <Toolbar/>
     </View>
   );
 };

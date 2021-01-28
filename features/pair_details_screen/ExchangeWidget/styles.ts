@@ -1,8 +1,6 @@
 import { StyleSheet } from "react-native";
 import { BackgroundColor } from "../../../enum/styles/BackgroundColor";
 import { Color } from "../../../enum/styles/Color";
-import { JustifyContent } from "../../../enum/styles/JustifyContent";
-import { AlignItems } from "../../../enum/styles/AlignItems";
 import { TextAlign } from "../../../enum/styles/TextAlign";
 
 export const styles = StyleSheet.create({
@@ -40,28 +38,6 @@ export const styles = StyleSheet.create({
 
   exchangeButtonContainer: {
     marginTop: 15,
-    marginBottom: 5,
     marginHorizontal: 15,
-    borderRadius: 20,
-    height: 60,
-  },
-
-  exchangeButtonDimensions: {
-    paddingHorizontal: 5,
-    height: 60,
-    borderRadius: 20,
-    justifyContent: JustifyContent.CENTER,
-    alignItems: AlignItems.CENTER
-  },
-
-  activityIndicatorContainer: {
-    backgroundColor: BackgroundColor.LABEL,
-    justifyContent: JustifyContent.CENTER,
-    alignItems: AlignItems.CENTER
-  },
-
-  buttonText: {
-    fontSize: 18,
-    color: Color.WHITE
   }
 })

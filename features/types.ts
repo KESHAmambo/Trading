@@ -1,8 +1,12 @@
+import { Screens } from "../enum/screens/screens";
+
 export type IRootStackParamList = {
-  Home: undefined;
-  PairDetails: {
+  [Screens.HOME]: undefined;
+  [Screens.PAIR_DETAILS]: {
     pairId: string
   };
+  [Screens.SUPPORT]: undefined;
+  [Screens.PROFILE]: undefined
 }
 
 export type IMaxMinFunction = (...values: number[]) => number;

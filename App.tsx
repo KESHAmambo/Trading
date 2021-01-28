@@ -8,6 +8,8 @@ import { StatusBar } from "react-native";
 import { PairDetailsScreen } from "./features/pair_details_screen/PairDetailsScreen";
 import { IRootStackParamList } from "./features/types";
 import { Screens } from "./enum/screens/screens";
+import SupportScreen from "./features/support_screen/SupportScreen";
+import ProfileScreen from "./features/profile_screen/ProfileScreen";
 
 const RootStack = createStackNavigator<IRootStackParamList>();
 
@@ -29,6 +31,14 @@ const App = () => {
           <RootStack.Screen
             name={Screens.PAIR_DETAILS}
             component={PairDetailsScreen}
+          />
+          <RootStack.Screen
+            name={Screens.SUPPORT}
+            component={SupportScreen}
+          />
+          <RootStack.Screen
+            name={Screens.PROFILE}
+            component={ProfileScreen}
           />
         </RootStack.Navigator>
       </NavigationContainer>

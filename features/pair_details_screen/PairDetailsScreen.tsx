@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { StackScreenProps } from "@react-navigation/stack";
 import { PairTitle } from "./PairTitle/PairTitle";
@@ -95,22 +95,25 @@ export const PairDetailsScreen = (props: IProps) => {
   }, []);
 
   return (
-    <View style={styles.mainContainer}>
-      <View style={styles.titleAndChartContainer}>
-        <PairTitle
+    <View style={{flex: 1}}>
+      <ScrollView contentContainerStyle={styles.mainContainer}>
+        <View style={styles.titleAndChartContainer}>
+          <PairTitle
+            pairName={pairName}
+            currentValue={currentValue}
+            onButtonPress={reversePair}
+          />
+          <PairChart
+            chartData={chartData}
+          />
+        </View>
+
+        <ExchangeWidget
           pairName={pairName}
           currentValue={currentValue}
-          onButtonPress={reversePair}
         />
-        <PairChart
-          chartData={chartData}
-        />
-      </View>
-
-      <ExchangeWidget
-        pairName={pairName}
-        currentValue={currentValue}
-      />
+      </ScrollView>
     </View>
+
   )
 }

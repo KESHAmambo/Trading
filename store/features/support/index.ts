@@ -1,32 +1,32 @@
 import { createSlice, SliceCaseReducers } from "@reduxjs/toolkit";
-import { IPairsState } from "./types";
-import { fetchCurrencyPairs } from "./thunks";
-import { PAIRS_PREFIX } from "../../constants";
+import { ISupportState } from "../pairsList/types";
+import { SUPPORT_PREFIX } from "../../constants";
+import { fetchSupportEmail } from "./thunks";
 
-const slice = createSlice<IPairsState, SliceCaseReducers<IPairsState>>({
-  name: PAIRS_PREFIX,
+const slice = createSlice<ISupportState, SliceCaseReducers<ISupportState>>({
+  name: SUPPORT_PREFIX,
   initialState: {
-    pairs: [],
+    email: '',
     isRefreshing: false
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(
-        fetchCurrencyPairs.pending,
+        fetchSupportEmail.pending,
         state => {
           state.isRefreshing = true;
         }
       )
       .addCase(
-        fetchCurrencyPairs.fulfilled,
+        fetchSupportEmail.fulfilled,
         (state, action) => {
-          state.pairs = action.payload;
+          state.email = action.payload;
           state.isRefreshing = false;
         }
       )
       .addCase(
-        fetchCurrencyPairs.rejected,
+        fetchSupportEmail.rejected,
         (state, action) => {
           console.log('fetch rejected: ' + action);
           state.isRefreshing = false;
@@ -35,4 +35,4 @@ const slice = createSlice<IPairsState, SliceCaseReducers<IPairsState>>({
   }
 })
 
-export const pairsReducer = slice.reducer;
+export const supportReducer = slice.reducer;
