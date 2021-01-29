@@ -1,5 +1,5 @@
-import { Image, Pressable, Text, View } from "react-native";
-import React, { useMemo, useState } from "react";
+import { Pressable, Text, View } from "react-native";
+import React, { useCallback, useMemo, useState } from "react";
 import { styles } from "./styles";
 import { PersonalDataWidget } from "./PersonalDataWidget/PersonalDataWidget";
 import { useSelector } from "react-redux";
@@ -8,8 +8,10 @@ import { WalletsList } from "./WalletsList/WalletsList";
 import { IWallet } from "./Wallet/types";
 import { SortingParam } from "../../enum/wallets_sorting/SortingParam";
 import { Sorted } from "../../enum/wallets_sorting/Sorted";
+import { IProfile } from "../../store/features/profile/types";
+import { SortingIconInactive, SortingIconMaxToMin, SortingIconMinToMax } from "../elements/SortingIcons/SortingIcons";
 
-const createSortingFunction = (param: SortingParam, sorted: Sorted) => {
+const getSortingFunction = (param: SortingParam, sorted: Sorted) => {
   if (param === SortingParam.CODE) {
     return (sorted === Sorted.FIRST) ? sortByCodeMinToMax : sortByCodeMaxToMin
   }
@@ -47,6 +49,18 @@ const sortByCodeMaxToMin = (a: IWallet, b: IWallet) => {
   return 0;
 }
 
+const useSortedWallets = (profile: IProfile, sorted: Sorted, sortingParam: SortingParam) => {
+  const sortedWallets = useMemo(() => {
+    if (sorted === Sorted.NOT_SORTED) {
+      return profile.wallets
+    } else {
+      return [...profile.wallets].sort(getSortingFunction(sortingParam, sorted));
+    }
+  }, [sortingParam, sorted]);
+
+  return sortedWallets;
+};
+
 
 const ProfileScreen = () => {
 
@@ -55,32 +69,32 @@ const ProfileScreen = () => {
 
   const profile = useSelector(profileSelector);
 
-  const sortedWallets = useMemo(() => {
-    if (sorted === Sorted.NOT_SORTED) {
-      return profile.wallets
-    } else {
-      return [...profile.wallets].sort(createSortingFunction(sortingParam, sorted));
-    }
-  }, [sortingParam, sorted])
+  const sortedWallets = useSortedWallets(profile, sorted, sortingParam);
 
-  const onSortingIconPress = (param: SortingParam) => {
-    if (param !== sortingParam) {
-      setSortingParam(param);
-      setSorted(Sorted.FIRST);
-    } else {
-      setSorted((sorted) => {
-        return (sorted === Sorted.SECOND) ? Sorted.NOT_SORTED : sorted + 1;
-      })
-    }
-  }
+  const onSortingIconPress = useCallback(
+    (param: SortingParam) => {
+      if (param !== sortingParam) {
+        setSortingParam(param);
+        setSorted(Sorted.FIRST);
+      } else {
+        setSorted((sorted) => {
+          return (sorted === Sorted.SECOND) ? Sorted.NOT_SORTED : sorted + 1;
+        })
+      }
+    }, [sorted, sortingParam]
+  )
 
-  const onSortByCodePress = () => {
-    onSortingIconPress(SortingParam.CODE);
-  }
+  const onSortByCodePress = useCallback(
+    () => {
+      onSortingIconPress(SortingParam.CODE);
+    }, [onSortingIconPress]
+  );
 
-  const onSortByVolumePress = () => {
-    onSortingIconPress(SortingParam.VOLUME)
-  }
+  const onSortByVolumePress = useCallback(
+    () => {
+      onSortingIconPress(SortingParam.VOLUME)
+    }, [onSortingIconPress]
+  );
 
   return (
     <View style={styles.mainContainer}>
@@ -98,21 +112,11 @@ const ProfileScreen = () => {
               <Text style={styles.sortingText}>{'Name'}</Text>
               {
                 (sorted === Sorted.NOT_SORTED) || (sortingParam !== SortingParam.CODE)
-                  ? <Image
-                    style={styles.sortingIcon}
-                    source={require('../../icons/sort-inactive.png')}
-                  />
+                  ? <SortingIconInactive/>
                   : (sorted === Sorted.FIRST)
-                  ? <Image
-                    style={styles.sortingIcon}
-                    source={require('../../icons/sort-min-max.png')}
-                  />
-                  : <Image
-                    style={styles.sortingIcon}
-                    source={require('../../icons/sort-max-min.png')}
-                  />
+                  ? <SortingIconMinToMax/>
+                  : <SortingIconMaxToMin/>
               }
-
             </View>
           </Pressable>
 
@@ -121,19 +125,10 @@ const ProfileScreen = () => {
               <Text style={styles.sortingText}>{'Vol'}</Text>
               {
                 (sorted === Sorted.NOT_SORTED) || (sortingParam !== SortingParam.VOLUME)
-                  ? <Image
-                    style={styles.sortingIcon}
-                    source={require('../../icons/sort-inactive.png')}
-                  />
+                  ? <SortingIconInactive/>
                   : (sorted === Sorted.FIRST)
-                  ? <Image
-                    style={styles.sortingIcon}
-                    source={require('../../icons/sort-max-min.png')}
-                  />
-                  : <Image
-                    style={styles.sortingIcon}
-                    source={require('../../icons/sort-min-max.png')}
-                  />
+                  ? <SortingIconMaxToMin/>
+                  : <SortingIconMinToMax/>
               }
             </View>
           </Pressable>

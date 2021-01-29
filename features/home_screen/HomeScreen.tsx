@@ -9,7 +9,7 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { IRootStackParamList } from "../types";
 import { Screens } from "../../enum/screens/screens";
 import { Toolbar } from "./Toolbar/Toolbar";
-import { fetchSupportEmail } from "../../store/features/support/thunks";
+import { fetchTechnicalInfo } from "../../store/features/technicalInfo/thunks";
 import { fetchProfile } from "../../store/features/profile/thunks";
 
 type IProps = StackScreenProps<IRootStackParamList, Screens.HOME>
@@ -26,7 +26,7 @@ const HomeScreen = (props: IProps) => {
   const [inputValue, setInputValue] = useState<string>('');
 
   useEffect(() => {
-    dispatch(fetchSupportEmail());
+    dispatch(fetchTechnicalInfo());
   }, []);
 
   useEffect(() => {

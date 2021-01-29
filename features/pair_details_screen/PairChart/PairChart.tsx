@@ -14,7 +14,8 @@ import { Color } from "../../../enum/styles/Color";
 import { styles } from "./styles";
 import { DateLabel } from "../../../enum/styles/ChartLabels";
 import { IMaxMinFunction } from "../../types";
-import { DAY_DURATION_IN_MILLISECONDS, processColorWrapper } from "../../../utilites/utilites";
+import { DAY_DURATION_IN_MILLISECONDS } from "../../../utilites/constants";
+import { processColorWrapper } from "../../../utilites/typescript/react-native-charts-wrapper/utilites";
 
 interface IProps {
   chartData: IChartData

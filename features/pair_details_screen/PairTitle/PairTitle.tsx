@@ -12,6 +12,10 @@ interface IProps {
   onButtonPress: () => void
 }
 
+const getCurrencyIconPath = (currencyCode: string) => {
+  return staticSourcesPath + '/icons/currencies/' + currencyCode + '.svg';
+}
+
 const FuncComponent = (props: IProps) => {
 
   const {
@@ -20,8 +24,13 @@ const FuncComponent = (props: IProps) => {
     onButtonPress
   } = props;
 
-  const currencyIcon1 = staticSourcesPath + '/icons/currencies/' + pairName.currencyCode1.toLowerCase() + '.svg';
-  const currencyIcon2 = staticSourcesPath + '/icons/currencies/' + pairName.currencyCode2.toLowerCase() + '.svg';
+  const {
+    currencyCode1,
+    currencyCode2
+  } = pairName;
+
+  const currencyIcon1 = getCurrencyIconPath(currencyCode1.toLowerCase());
+  const currencyIcon2 = getCurrencyIconPath(currencyCode2.toLowerCase());
   const reverseButton = staticSourcesPath + '/icons/buttons/exchange.svg';
 
   return (

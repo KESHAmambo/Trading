@@ -16,10 +16,10 @@ export interface IProfile extends IProfileWidget {
 
 export interface IPersonalData {
   name: IProfileName,
-  dateOfBirth: string
+  dateOfBirth: string | undefined
 }
 
 export interface IProfileName {
-  firstName: string,
-  lastName: string
+  firstName: string | undefined,
+  lastName: string | undefined
 }

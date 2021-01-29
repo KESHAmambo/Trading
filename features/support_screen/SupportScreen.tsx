@@ -5,10 +5,10 @@ import { Picker } from "@react-native-picker/picker";
 import { Color } from "../../enum/styles/Color";
 import { ItemValue, PickerItemProps } from "@react-native-picker/picker/typings/Picker";
 import { Screens } from "../../enum/screens/screens";
-import { GradientButton } from "../GradientButton/GradientButton";
+import { GradientButton } from "../elements/GradientButton/GradientButton";
 import { createMailUrl } from "../../utilites/utilites";
 import { useSelector } from "react-redux";
-import { supportEmailSelector } from "../../store/features/support/selectors";
+import { supportEmailSelector } from "../../store/features/technicalInfo/selectors";
 
 const addPickerItems = (items: PickerItemProps[]) => {
 

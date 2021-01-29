@@ -3,14 +3,16 @@ import React, { useEffect, useState } from "react";
 import { styles } from "./styles";
 import { Color } from "../../../enum/styles/Color";
 import { IPairName } from "../types";
-import { GradientButton } from "../../GradientButton/GradientButton";
+import { GradientButton } from "../../elements/GradientButton/GradientButton";
+import { createApiURL } from "../../../netconfig"
+import { useSelector } from "react-redux";
+import { paymentFeeInPercentSelector } from "../../../store/features/technicalInfo/selectors";
+import { InputFieldNumeric } from "../../elements/InputFieldNumeric/InputFieldNumeric";
 
 interface IProps {
   pairName: IPairName,
   currentValue: number | null
 }
-
-const PAYMENT_FEE_IN_PERCENT = 0.5;
 
 const FuncComponent = (props: IProps) => {
 
@@ -23,8 +25,10 @@ const FuncComponent = (props: IProps) => {
   const [inputValue1, setInputValue1] = useState<string>('');
   const [inputValue2, setInputValue2] = useState<string>('');
 
+  const paymentFeeInPercent = useSelector(paymentFeeInPercentSelector);
+
   const isOneOfInputsEmpty = (!(inputValue1 && inputValue2));
-  const paymentFeeValue = (inputValue2 === '') ? '' : (Number(inputValue2) * PAYMENT_FEE_IN_PERCENT / 100).toFixed(8).toString();
+  const paymentFeeValue = (inputValue2 === '') ? '' : (Number(inputValue2) * paymentFeeInPercent / 100).toFixed(8).toString();
 
   useEffect(() => {
     clearInputs();
@@ -62,37 +66,39 @@ const FuncComponent = (props: IProps) => {
       setIsExchangeProcessing(true);
 
       setTimeout(() => {
-        clearInputs();
-        setIsExchangeProcessing(false);
+        fetch(createApiURL('/exchange-history/2'), {
+          method: 'POST',
+          body: {
+            pair: pairName,
+            [pairName.currencyCode1]: inputValue1,
+            [pairName.currencyCode2]: inputValue2
+          }
+        })
+          .catch((err) => {console.log('fetching failed: ' + err)})
+          .finally(() => {
+            clearInputs();
+            setIsExchangeProcessing(false);
+            console.log('OK');
+          })
       }, 1000);
     }
   }
 
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.inputFieldContainer}>
-        <TextInput
-          style={styles.inputField}
-          onChangeText={onChangeText1}
-          value={inputValue1}
-          editable={!isExchangeProcessing}
-          keyboardType={'numeric'}
-          placeholder={`Amount (${pairName.currencyCode1})`}
-          placeholderTextColor={Color.BRIGHT_VIOLET}
-        />
-      </View>
+      <InputFieldNumeric
+        onChangeText={onChangeText1}
+        value={inputValue1}
+        editable={!isExchangeProcessing}
+        placeholder={`Amount (${pairName.currencyCode1})`}
+      />
 
-      <View style={styles.inputFieldContainer}>
-        <TextInput
-          style={styles.inputField}
-          onChangeText={onChangeText2}
-          value={inputValue2}
-          editable={!isExchangeProcessing}
-          keyboardType={'numeric'}
-          placeholder={`Amount (${pairName.currencyCode2})`}
-          placeholderTextColor={Color.BRIGHT_VIOLET}
-        />
-      </View>
+      <InputFieldNumeric
+        onChangeText={onChangeText2}
+        value={inputValue2}
+        editable={!isExchangeProcessing}
+        placeholder={`Amount (${pairName.currencyCode2})`}
+      />
 
       <View style={[styles.inputFieldContainer, styles.paymentFeeContainer]}>
         <TextInput
@@ -100,7 +106,7 @@ const FuncComponent = (props: IProps) => {
           onChangeText={onChangeText2}
           value={paymentFeeValue}
           editable={false}
-          placeholder={`Payment fee ${PAYMENT_FEE_IN_PERCENT}% (${pairName.currencyCode2})`}
+          placeholder={`Payment fee ${paymentFeeInPercent}% (${pairName.currencyCode2})`}
           placeholderTextColor={Color.BRIGHT_VIOLET}
         />
       </View>

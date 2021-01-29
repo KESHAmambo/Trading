@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native";
 import { FlexDirection } from "../../../enum/styles/FlexDirection";
 import { JustifyContent } from "../../../enum/styles/JustifyContent";
 import { AlignItems } from "../../../enum/styles/AlignItems";
-import { BorderColor } from "../../../enum/styles/BorderColor";
 
 export const styles = StyleSheet.create({
   mainContainer: {
@@ -22,8 +21,6 @@ export const styles = StyleSheet.create({
   avatar: {
     height: 150,
     width: 150,
-    borderColor: BorderColor.ICON,
-    borderWidth: 3,
     borderRadius: 15
   },
 

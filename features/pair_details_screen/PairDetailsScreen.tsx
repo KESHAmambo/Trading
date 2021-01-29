@@ -13,6 +13,7 @@ import { PairChart } from "./PairChart/PairChart";
 import { Screens } from "../../enum/screens/screens";
 import { ExchangeWidget } from "./ExchangeWidget/ExchangeWidget";
 import { IPairName } from "./types";
+import { fetchJSON } from "../../utilites/utilites";
 
 type IProps = StackScreenProps<IRootStackParamList, Screens.PAIR_DETAILS>
 
@@ -70,8 +71,7 @@ export const PairDetailsScreen = (props: IProps) => {
 
   const fetchChartData = () => {
     setIsChartDataRefreshing(true);
-    fetch(createApiURL('/chartData'))
-      .then((response) => (response.json()))
+    fetchJSON(createApiURL('/chartData'))
       .then((json) => {
         setChartData(json.chartData as IChartData);
       })

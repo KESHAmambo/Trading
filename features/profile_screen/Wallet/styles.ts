@@ -6,18 +6,11 @@ import { AlignItems } from "../../../enum/styles/AlignItems";
 import { Color } from "../../../enum/styles/Color";
 
 export const styles = StyleSheet.create({
-  mainContainerWrapper: {
-    paddingHorizontal: 15
-  },
-
   mainContainer: {
     flex: 1,
     flexDirection: FlexDirection.ROW,
     justifyContent: JustifyContent.SPACE_BETWEEN,
-    alignItems: AlignItems.CENTER,
-    borderBottomWidth: 1,
-    borderColor: BorderColor.ICON,
-    paddingVertical: 8
+    alignItems: AlignItems.CENTER
   },
 
   iconAndNameContainer: {

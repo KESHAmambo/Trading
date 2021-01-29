@@ -1,0 +1,1 @@
+export const DAY_DURATION_IN_MILLISECONDS = 1000 * 3600 * 24;

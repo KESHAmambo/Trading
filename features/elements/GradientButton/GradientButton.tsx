@@ -1,6 +1,6 @@
 import { ActivityIndicator, Pressable, Text, View } from "react-native";
 import { styles } from "./styles";
-import { Color } from "../../enum/styles/Color";
+import { Color } from "../../../enum/styles/Color";
 import LinearGradient from "react-native-linear-gradient";
 import React from "react";
 

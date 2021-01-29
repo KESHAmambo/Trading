@@ -1,26 +1,27 @@
 import { StyleSheet } from "react-native";
-import { BackgroundColor } from "../../../enum/styles/BackgroundColor";
-import { BorderColor } from "../../../enum/styles/BorderColor";
 import { FlexDirection } from "../../../enum/styles/FlexDirection";
 import { JustifyContent } from "../../../enum/styles/JustifyContent";
 import { AlignItems } from "../../../enum/styles/AlignItems";
+import { Color } from "../../../enum/styles/Color";
 
 export const styles = StyleSheet.create({
   mainContainer: {
     flexDirection: FlexDirection.ROW,
     justifyContent: JustifyContent.SPACE_BETWEEN,
     alignItems: AlignItems.CENTER,
-    height: 50,
-    backgroundColor: BackgroundColor.CONTAINER,
-    borderTopWidth: 3,
-    borderTopColor: BorderColor.ICON
+    paddingHorizontal: 10,
+    paddingVertical: 5
   },
 
-  newsContainer: {
-    flex: 0.6
+  wallet: {
+    color: Color.WHITE,
+    fontSize: 14
   },
 
-  profileWidgetContainer: {
-    flex: 0.4
+  avatar: {
+    height: 40,
+    width: 40,
+    borderRadius: 20,
+    borderWidth: 2
   }
 })

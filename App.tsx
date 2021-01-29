@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./features/home_screen/HomeScreen";
 import { BackgroundColor } from "./enum/styles/BackgroundColor";
-import { StatusBar } from "react-native";
+import { StatusBar, } from "react-native";
 import { PairDetailsScreen } from "./features/pair_details_screen/PairDetailsScreen";
 import { IRootStackParamList } from "./features/types";
 import { Screens } from "./enum/screens/screens";

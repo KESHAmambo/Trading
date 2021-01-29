@@ -1,8 +1,8 @@
 import { StyleSheet } from "react-native";
-import { BackgroundColor } from "../../enum/styles/BackgroundColor";
-import { JustifyContent } from "../../enum/styles/JustifyContent";
-import { AlignItems } from "../../enum/styles/AlignItems";
-import { Color } from "../../enum/styles/Color";
+import { BackgroundColor } from "../../../enum/styles/BackgroundColor";
+import { JustifyContent } from "../../../enum/styles/JustifyContent";
+import { AlignItems } from "../../../enum/styles/AlignItems";
+import { Color } from "../../../enum/styles/Color";
 
 export const styles = StyleSheet.create({
   buttonContainer: {

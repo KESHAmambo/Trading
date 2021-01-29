@@ -4,15 +4,6 @@ import { Color } from "../../../enum/styles/Color";
 import { TextAlign } from "../../../enum/styles/TextAlign";
 
 export const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    marginTop: 10,
-    marginBottom: 20,
-    marginHorizontal: 5,
-    borderRadius: 20,
-    backgroundColor: BackgroundColor.CONTAINER
-  },
-
   inputFieldContainer: {
     marginTop: 15,
     marginBottom: 5,
@@ -26,18 +17,5 @@ export const styles = StyleSheet.create({
     color: Color.WHITE,
     textAlign: TextAlign.CENTER,
     fontSize: 18,
-  },
-
-  paymentFeeContainer: {
-    backgroundColor: BackgroundColor.INPUT_FIELD_DISABLED
-  },
-
-  paymentFee: {
-    fontSize: 16
-  },
-
-  exchangeButtonContainer: {
-    marginTop: 15,
-    marginHorizontal: 15,
   }
 })

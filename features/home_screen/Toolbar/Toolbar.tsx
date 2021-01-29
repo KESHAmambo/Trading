@@ -3,6 +3,7 @@ import React from "react";
 import { styles } from "./styles";
 import { useNavigation } from '@react-navigation/native'
 import { Screens } from "../../../enum/screens/screens";
+import { ProfileWidget } from "../ProfileWidget/ProfileWidget";
 
 interface IProps {
 
@@ -22,9 +23,13 @@ const FuncComponent = (props: IProps) => {
 
 
   return (
-    <View style={styles.toolbarContainer}>
-      <Button title={'Support'} onPress={onSupportButtonPress} />
-      <Button title={'Profile'} onPress={onProfileButtonPress} />
+    <View style={styles.mainContainer}>
+      <View style={styles.newsContainer}>
+        <Button title={'Support'} onPress={onSupportButtonPress} />
+      </View>
+      <View style={styles.profileWidgetContainer}>
+        <ProfileWidget onPress={onProfileButtonPress}/>
+      </View>
     </View>
   )
 }

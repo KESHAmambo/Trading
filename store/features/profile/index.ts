@@ -11,10 +11,10 @@ const slice = createSlice<IProfileState, SliceCaseReducers<IProfileState>>({
       avatar: '',
       personalData: {
         name: {
-          firstName: 'Unknown',
-          lastName: 'Unknown'
+          firstName: undefined,
+          lastName: undefined
         },
-        dateOfBirth: '---'
+        dateOfBirth: undefined
       },
       wallets: []
     },
