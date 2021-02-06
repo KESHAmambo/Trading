@@ -10,6 +10,7 @@ import { IRootStackParamList } from "./features/types";
 import { Screens } from "./enum/screens/screens";
 import SupportScreen from "./features/support_screen/SupportScreen";
 import ProfileScreen from "./features/profile_screen/ProfileScreen";
+import NewsScreen from "./features/news_screen/NewsScreen";
 
 const RootStack = createStackNavigator<IRootStackParamList>();
 
@@ -39,6 +40,10 @@ const App = () => {
           <RootStack.Screen
             name={Screens.PROFILE}
             component={ProfileScreen}
+          />
+          <RootStack.Screen
+            name={Screens.NEWS}
+            component={NewsScreen}
           />
         </RootStack.Navigator>
       </NavigationContainer>

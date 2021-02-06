@@ -32,8 +32,14 @@ export const addAsyncThunkRefreshingReducers = <T extends IsRefreshingState>(
     .addCase(
       thunk.rejected,
       (state, action) => {
-        console.log('fetch rejected: ' + action);
+        console.log('fetch rejected: ' + action.type);
         state.isRefreshing = false;
       }
     )
+}
+
+export const cutString = (str: string | number, maxLength: number) => {
+  const numChars = maxLength > 3 ? Math.floor(maxLength - 2) : 1;
+  const text = String(str);
+  return text.length > maxLength ? text.slice(0, numChars) + '...' : text;
 }

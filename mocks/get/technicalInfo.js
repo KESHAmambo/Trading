@@ -18,9 +18,15 @@ const respond = () => {
 
   const supportEmail = faker.internet.email(firstName, lastName, provider);
 
+  const newsHeaders = [];
+  for (let i = 0; i < 10; i++) {
+    newsHeaders.push(faker.lorem.sentence())
+  }
+
   const technicalInfo = {
     paymentFeeInPercent: PAYMENT_FEE_IN_PERCENT,
-    supportEmail
+    supportEmail,
+    newsHeaders
   }
 
   return ({

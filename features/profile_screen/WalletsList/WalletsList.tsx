@@ -34,7 +34,10 @@ const FuncComponent = (props: IProps) => {
     }
 
     return (
-      <Pressable onPress={onWalletPress} android_ripple={{color: Color.BRIGHT_VIOLET, borderless: false}}>
+      <Pressable
+        onPress={onWalletPress}
+        android_ripple={{color: Color.DARK_VIOLET, borderless: false}}
+      >
         <View style={styles.mainContainerWrapper}>
           <View style={styles.mainContainer}>
             <Wallet

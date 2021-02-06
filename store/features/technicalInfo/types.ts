@@ -5,5 +5,6 @@ export interface ITechnicalInfoState {
 
 export interface ITechnicalInfo {
   supportEmail: string,
-  paymentFeeInPercent: number
+  paymentFeeInPercent: number,
+  newsHeaders: string[],
 }

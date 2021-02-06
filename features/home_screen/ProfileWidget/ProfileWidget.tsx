@@ -6,6 +6,8 @@ import { profileSelector } from "../../../store/features/profile/selectors";
 import { Avatar } from "../../elements/Avatar/Avatar";
 import { IProfile } from "../../../store/features/profile/types";
 import { Color } from "../../../enum/styles/Color";
+import { cutString } from "../../../utilites/utilites";
+import { WINDOW_WIDTH } from "../../../utilites/constants";
 
 interface IProps {
   onPress: () => void
@@ -65,19 +67,25 @@ const FuncComponent = (props: IProps) => {
 
   useScrollWallets(walletsLength, setDisplayedWalletIndex);
 
-  const displayedWalletVolume = code + ' ' + volume;
-
   return (
     <Pressable
       onPress={onPress}
-      android_ripple={{color: Color.BRIGHT_VIOLET}}>
+      android_ripple={{color: Color.DARK_VIOLET, radius: 0.15*WINDOW_WIDTH}}>
       <View style={styles.mainContainer}>
-        <Text style={styles.wallet}>
-          {displayedWalletVolume.length > 12 ? displayedWalletVolume.slice(0, 11) + '...' : displayedWalletVolume}
-        </Text>
+        <View style={styles.walletContainer}>
+          <Text style={styles.wallet}>
+            {cutString(code, 7)}
+          </Text>
+
+          <Text style={styles.wallet}>
+            {cutString(volume, 7)}
+          </Text>
+        </View>
+
         <Avatar
           style={styles.avatar}
-          uri={profile.avatar}/>
+          uri={profile.avatar}
+        />
       </View>
     </Pressable>
   )

@@ -9,7 +9,8 @@ const slice = createSlice<ITechnicalInfoState, SliceCaseReducers<ITechnicalInfoS
   initialState: {
     technicalInfo: {
       supportEmail: '',
-      paymentFeeInPercent: 0
+      paymentFeeInPercent: 0,
+      newsHeaders: []
     },
     isRefreshing: false
   },
