@@ -8,7 +8,7 @@ import { IPairName } from "../types";
 
 interface IProps {
   pairName: IPairName,
-  currentValue: number | null,
+  currentRatio: number | null,
   onButtonPress: () => void
 }
 
@@ -20,7 +20,7 @@ const FuncComponent = (props: IProps) => {
 
   const {
     pairName,
-    currentValue,
+    currentRatio,
     onButtonPress
   } = props;
 
@@ -58,7 +58,7 @@ const FuncComponent = (props: IProps) => {
         </Text>
 
         <Text style={styles.currentValue}>
-          {currentValue?.toPrecision(5)}
+          {currentRatio?.toPrecision(5)}
         </Text>
       </View>
 

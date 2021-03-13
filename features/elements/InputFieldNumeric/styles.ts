@@ -5,9 +5,8 @@ import { TextAlign } from "../../../enum/styles/TextAlign";
 
 export const styles = StyleSheet.create({
   inputFieldContainer: {
-    marginTop: 15,
+    marginTop: 5,
     marginBottom: 5,
-    marginHorizontal: 15,
     paddingHorizontal: 5,
     borderRadius: 12,
     backgroundColor: BackgroundColor.INPUT_FIELD

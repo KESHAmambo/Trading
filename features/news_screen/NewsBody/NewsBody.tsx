@@ -24,19 +24,22 @@ const FuncComponent = (props: IProps) => {
 
   const isNewsToFetch = pagesToFetch.includes(newsPage);
   const isNewsLoaded = (newsBodies[newsPage] !== undefined);
+  const shouldNewsBeFetched = isNewsToFetch && !isNewsLoaded && !isNewsRefreshing;
+  const shouldPlaceholderBeShown = isNewsToFetch && !isNewsLoaded && isNewsRefreshing;
+
   const newsBody = useMemo(() => isNewsLoaded ? newsBodies[newsPage] : [], [newsBodies, newsPage])
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isNewsToFetch && !isNewsLoaded) {
+    if (shouldNewsBeFetched) {
       dispatch(fetchNews(newsPage));
     }
   }, [pagesToFetch]);
 
   return (
     <View style={styles.mainContainer}>
-      {(isNewsRefreshing && isNewsToFetch && !isNewsLoaded)
+      {shouldPlaceholderBeShown
         ?
         <NewsPlaceholder/>
         :

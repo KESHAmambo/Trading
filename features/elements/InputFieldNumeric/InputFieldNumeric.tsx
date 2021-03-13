@@ -1,34 +1,40 @@
 import React from "react";
-import { TextInput, View } from "react-native";
+import { ColorValue, StyleProp, TextInput, TextStyle, View, ViewStyle } from "react-native";
 import { styles } from "./styles";
 import { Color } from "../../../enum/styles/Color";
 
 interface IProps {
-  onChangeText?: (text: string) => void;
-  value?: string;
-  editable?: boolean;
-  placeholder?: string;
+  viewStyle?: StyleProp<ViewStyle>,
+  textStyle?: StyleProp<TextStyle>,
+  onChangeText?: (text: string) => void,
+  value?: string,
+  editable?: boolean,
+  placeholder?: string,
+  placeholderTextColor?: ColorValue
 }
 
 const FuncComponent = (props: IProps) => {
 
   const {
+    viewStyle,
+    textStyle,
     onChangeText,
     value,
     editable,
-    placeholder
+    placeholder,
+    placeholderTextColor
   } = props;
 
   return (
-    <View style={styles.inputFieldContainer}>
+    <View style={[styles.inputFieldContainer, viewStyle]}>
       <TextInput
-        style={styles.inputField}
+        style={[styles.inputField, textStyle]}
         onChangeText={onChangeText}
         value={value}
         editable={editable}
         keyboardType={'numeric'}
         placeholder={placeholder}
-        placeholderTextColor={Color.BRIGHT_VIOLET}
+        placeholderTextColor={placeholderTextColor ? placeholderTextColor : Color.BRIGHT_VIOLET}
       />
     </View>
   )

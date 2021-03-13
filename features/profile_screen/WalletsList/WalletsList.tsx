@@ -45,7 +45,7 @@ const FuncComponent = (props: IProps) => {
             />
             {
               isWalletSelected
-                ? <ExchangeHistory/>
+                ? <ExchangeHistory currencyCode={item.code}/>
                 : null
             }
           </View>

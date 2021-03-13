@@ -26,5 +26,6 @@ export const styles = StyleSheet.create({
     alignSelf: AlignSelf.CENTER,
     height: 200,
     width: 300,
+    borderRadius: 12
   }
 })

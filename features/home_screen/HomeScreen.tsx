@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { currencyPairsListSelector } from "../../store/features/pairsList/selectors";
-import { TextInput, View } from "react-native";
+import { ScrollView, TextInput, View } from "react-native";
 import { styles } from "./styles";
 import { Color } from "../../enum/styles/Color";
 import { PairsList } from "./PairsList/PairsList";
@@ -47,26 +47,28 @@ const HomeScreen = (props: IProps) => {
   }, [inputValue, curPairs]);
 
   return (
-    <View style={styles.mainContainer}>
-      <View style={styles.searchingFieldContainerWrapper}>
-        <View style={styles.searchingFieldContainer}>
-          <TextInput
-            style={styles.searchingField}
-            onChangeText={setInputValue}
-            value={inputValue}
-            placeholder={'Search...'}
-            placeholderTextColor={Color.BRIGHT_VIOLET}
+    <View style={styles.scrollViewWrapper}>
+      <ScrollView contentContainerStyle={styles.mainContainer}>
+        <View style={styles.searchingFieldContainerWrapper}>
+          <View style={styles.searchingFieldContainer}>
+            <TextInput
+              style={styles.searchingField}
+              onChangeText={setInputValue}
+              value={inputValue}
+              placeholder={'Search...'}
+              placeholderTextColor={Color.BRIGHT_VIOLET}
+            />
+          </View>
+        </View>
+
+        <View style={styles.pairsListContainer}>
+          <PairsList
+            currencyPairs={filteredBySearchPairs}
           />
         </View>
-      </View>
 
-      <View style={styles.pairsListContainer}>
-        <PairsList
-          currencyPairs={filteredBySearchPairs}
-        />
-      </View>
-
-      <Toolbar/>
+        <Toolbar/>
+      </ScrollView>
     </View>
   );
 };
