@@ -79,13 +79,13 @@ export const styles = StyleSheet.create({
 
   pairRatio: {
     color: Color.WHITE,
-    fontSize: 18,
+    fontSize: 16,
   },
 
   pairChangeContainer: {
     borderRadius: 5,
     paddingHorizontal: 7,
-    paddingVertical: 1,
+    paddingVertical: 3,
   },
 
   backgroundGreen: {
@@ -98,6 +98,6 @@ export const styles = StyleSheet.create({
 
   pairChange: {
     color: Color.WHITE,
-    fontSize: 14
+    fontSize: 12
   },
 });

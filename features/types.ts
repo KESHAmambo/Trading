@@ -6,7 +6,10 @@ export type IRootStackParamList = {
     pairId: string
   };
   [Screens.SUPPORT]: undefined;
-  [Screens.PROFILE]: undefined
+  [Screens.PROFILE]: undefined;
+  [Screens.NEWS]: {
+    newsId: number
+  }
 }
 
 export type IMaxMinFunction = (...values: number[]) => number;

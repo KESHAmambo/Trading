@@ -8,20 +8,29 @@ import { IPairName } from "../types";
 
 interface IProps {
   pairName: IPairName,
-  currentValue: number | null,
+  currentRatio: number | null,
   onButtonPress: () => void
+}
+
+const getCurrencyIconPath = (currencyCode: string) => {
+  return staticSourcesPath + '/icons/currencies/' + currencyCode + '.svg';
 }
 
 const FuncComponent = (props: IProps) => {
 
   const {
     pairName,
-    currentValue,
+    currentRatio,
     onButtonPress
   } = props;
 
-  const currencyIcon1 = staticSourcesPath + '/icons/currencies/' + pairName.currencyCode1.toLowerCase() + '.svg';
-  const currencyIcon2 = staticSourcesPath + '/icons/currencies/' + pairName.currencyCode2.toLowerCase() + '.svg';
+  const {
+    currencyCode1,
+    currencyCode2
+  } = pairName;
+
+  const currencyIcon1 = getCurrencyIconPath(currencyCode1.toLowerCase());
+  const currencyIcon2 = getCurrencyIconPath(currencyCode2.toLowerCase());
   const reverseButton = staticSourcesPath + '/icons/buttons/exchange.svg';
 
   return (
@@ -49,7 +58,7 @@ const FuncComponent = (props: IProps) => {
         </Text>
 
         <Text style={styles.currentValue}>
-          {currentValue?.toPrecision(5)}
+          {currentRatio?.toPrecision(5)}
         </Text>
       </View>
 

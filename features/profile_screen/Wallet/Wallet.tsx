@@ -21,26 +21,23 @@ const FuncComponent = (props: IProps) => {
     volume
   } = wallet;
 
-  const amountDisplayed = volume ? volume.toFixed(8) : 0;
+  const volumeDisplayed = volume ? volume.toFixed(8) : 0;
 
   return (
-    <View style={styles.mainContainerWrapper}>
-      <View style={styles.mainContainer}>
-        <View style={styles.iconAndNameContainer}>
-          <SvgUri
-            style={styles.icon}
-            uri={icon}
-          />
+    <View style={styles.mainContainer}>
+      <View style={styles.iconAndNameContainer}>
+        <SvgUri
+          style={styles.icon}
+          uri={icon}
+        />
 
-          <Text style={styles.currencyCode}>{code}</Text>
+        <Text style={styles.currencyCode}>{code}</Text>
 
-          <Text style={styles.currencyName}>{name}</Text>
-        </View>
+        <Text style={styles.currencyName}>{name}</Text>
+      </View>
 
-        <View style={styles.amountContainer}>
-          <Text style={styles.amount}>{amountDisplayed}</Text>
-        </View>
-
+      <View style={styles.amountContainer}>
+        <Text style={styles.amount}>{volumeDisplayed}</Text>
       </View>
     </View>
 

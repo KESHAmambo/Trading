@@ -11,16 +11,24 @@ const slice = createSlice<IProfileState, SliceCaseReducers<IProfileState>>({
       avatar: '',
       personalData: {
         name: {
-          firstName: 'Unknown',
-          lastName: 'Unknown'
+          firstName: undefined,
+          lastName: undefined
         },
-        dateOfBirth: '---'
+        dateOfBirth: undefined
       },
       wallets: []
     },
     isRefreshing: false
   },
-  reducers: {},
+  reducers: {
+    walletUpdated(state, action) {
+      const { currencyCode, change } = action.payload;
+      const wallet = state.profile.wallets.find((wallet) => wallet.code === currencyCode);
+      if (wallet) {
+        wallet.volume = wallet.volume + change;
+      }
+    }
+  },
   extraReducers: (builder) => {
     addAsyncThunkRefreshingReducers<IProfileState>(
       builder,
@@ -32,4 +40,6 @@ const slice = createSlice<IProfileState, SliceCaseReducers<IProfileState>>({
   }
 })
 
-export const profileReducer = slice.reducer
+export const { walletUpdated } = slice.actions;
+
+export const profileReducer = slice.reducer;

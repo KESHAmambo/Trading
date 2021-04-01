@@ -1,18 +1,13 @@
-import { ColorValue, ProcessedColorValue } from "react-native-charts-wrapper/node_modules/@types/react-native";
-import { processColor } from "react-native";
 import { ActionReducerMapBuilder, AsyncThunk, Draft } from "@reduxjs/toolkit";
 import { IsRefreshingState, NoInfer } from "./types";
 
-export const DAY_DURATION_IN_MILLISECONDS = 1000 * 3600 * 24;
-
-//@ts-ignore
-export const processColorWrapper: (color?: number | ColorValue) => ProcessedColorValue | null | undefined = (color) => {
-  //@ts-ignore
-  return processColor(color)
-}
-
 export const createMailUrl = (email = '', subject = '', body = '') => {
   return `mailto:${email}?subject=${subject}&body=${body}`
+}
+
+export const fetchJSON = (url: string) => {
+  return fetch(url)
+    .then((response) => (response.json()))
 }
 
 export const addAsyncThunkRefreshingReducers = <T extends IsRefreshingState>(
@@ -37,8 +32,14 @@ export const addAsyncThunkRefreshingReducers = <T extends IsRefreshingState>(
     .addCase(
       thunk.rejected,
       (state, action) => {
-        console.log('fetch rejected: ' + action);
+        console.log('fetch rejected: ' + action.type);
         state.isRefreshing = false;
       }
     )
+}
+
+export const cutString = (str: string | number, maxLength: number) => {
+  const numChars = maxLength > 3 ? Math.floor(maxLength - 2) : 1;
+  const text = String(str);
+  return text.length > maxLength ? text.slice(0, numChars) + '...' : text;
 }

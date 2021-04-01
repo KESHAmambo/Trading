@@ -1,10 +1,9 @@
-import { Dimensions, StatusBar, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { FlexDirection } from "../../enum/styles/FlexDirection";
 import { BackgroundColor } from "../../enum/styles/BackgroundColor";
 import { AlignItems } from "../../enum/styles/AlignItems";
 import { JustifyContent } from "../../enum/styles/JustifyContent";
-
-const screenHeightWithoutBars = Dimensions.get("window").height - (StatusBar.currentHeight !== undefined ? StatusBar.currentHeight : 0);
+import { WINDOW_HEIGHT_WITHOUT_BARS } from "../../utilites/constants";
 
 export const styles = StyleSheet.create({
   scrollViewWrapper: {
@@ -13,14 +12,14 @@ export const styles = StyleSheet.create({
   },
 
   mainContainer: {
-    height: screenHeightWithoutBars,
+    height: WINDOW_HEIGHT_WITHOUT_BARS,
     flexDirection: FlexDirection.COLUMN,
     justifyContent: JustifyContent.FLEX_START,
     alignItems: AlignItems.STRETCH,
   },
 
   titleAndChartContainer: {
-    flex: 0.5,
+    height: 0.5*WINDOW_HEIGHT_WITHOUT_BARS,
     paddingBottom: 15,
     marginBottom: 10,
     backgroundColor: BackgroundColor.CONTAINER,
@@ -37,6 +36,6 @@ export const styles = StyleSheet.create({
   },
 
   exchangeWidgetContainer: {
-    flex: 0.5
+    flex: 1
   }
 });
